@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Organization {
+  id                  String    @id @default(uuid())
+  subdomain           String    @unique
+  organizationName    String
+  organizationPanCard String    @unique
+  organizationMail    String    @unique
+  organizationType    String
+  organizationWebsite String
+  grades              Grade[]
+  students            Student[]
+  users               User[]
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  
+
+}
+
+
+model User {
+  id             String       @id @default(cuid())
+  firstName     String
+  lastName       String
+  email          String       @unique
+  profileImage   String
+  role           Role         @default(STUDENT)
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+}
+
+model Student {
+  id                 String              @id @default(uuid())
+  firstName          String
+  lastName           String
+  age                Int
+  address            String
+  phoneNumber        String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  organizationId     String
+  gradeId            Int
+  grade              Grade               @relation(fields: [gradeId], references: [id])
+  organization       Organization        @relation(fields: [organizationId], references: [id])
+  student_attendance StudentAttendance[]
+
+  @@unique([id, organizationId])
+}
+
+model Grade {
+  id             Int          @id @default(autoincrement())
+  grade          String
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  students       Student[]
+}
+
+model StudentAttendance {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  studentId String
+  present   Boolean  @default(false)
+  day       Int
+  month     Int
+  year      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  student   Student  @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, day, month, year])
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
+
+
+
+
+
