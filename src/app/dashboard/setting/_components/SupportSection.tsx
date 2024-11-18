@@ -1,8 +1,4 @@
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Toaster, toast } from 'sonner';
 
 // ...
 
@@ -15,7 +11,6 @@ import {
   Card,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-// import FileUploaderTest from "@/components/FileUploader";
 import { Textarea } from '@/components/ui/textarea';
 
 const SupportSection = () => {

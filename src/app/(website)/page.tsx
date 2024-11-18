@@ -8,7 +8,7 @@ import {
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { redirect } from 'next/navigation';
+
 import {
   Dialog,
   DialogContent,
@@ -21,6 +21,7 @@ import Features from '../components/websitecomp/Features';
 import BentoGrid from '../components/websitecomp/BentoGrid';
 import Testimonials from '../components/websitecomp/Testimonials';
 import { ThemeToggle } from '../dashboard/components/ThemeToggle';
+import { Spotlight } from '@/components/magicui/Spotlight';
 
 export default async function IndexPage() {
   const { isAuthenticated } = getKindeServerSession();
@@ -30,10 +31,12 @@ export default async function IndexPage() {
   // }
   return (
     <main className="p-5">
+      <Spotlight className="sm:ml-[15%] md:ml-[25%]" />
       <header className="flex items-center justify-between my-3">
         <div>
           <h1>Next.js + RSAI CRM</h1>
         </div>
+
         <div className="flex items-center gap-5">
           <ThemeToggle />
           <LoginLink>
@@ -44,6 +47,7 @@ export default async function IndexPage() {
           </RegisterLink>
         </div>
       </header>
+
       <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
         <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
           School CRM All in One Place
@@ -55,10 +59,10 @@ export default async function IndexPage() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogDescription>
-                  <CreateOrganizationPage />
-                </DialogDescription>
+                <DialogTitle></DialogTitle>
+                <DialogDescription></DialogDescription>
               </DialogHeader>
+              <CreateOrganizationPage />
             </DialogContent>
           </Dialog>
 

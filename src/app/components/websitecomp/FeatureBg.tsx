@@ -12,7 +12,7 @@ const FeatureBg: React.FC = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_96_118)">
+      <g clipPath="url(#clip0_96_118)">
         <rect
           width="834"
           height="1194"
@@ -175,7 +175,7 @@ const FeatureBg: React.FC = () => {
           ></ellipse>
         </g>
         <g filter="url(#filter1_d_96_118)">
-          <g clip-path="url(#clip1_96_118)">
+          <g clipPath="url(#clip1_96_118)">
             <rect
               x="559"
               y="473"

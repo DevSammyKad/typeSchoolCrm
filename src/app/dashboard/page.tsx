@@ -5,8 +5,8 @@ import {
   Activity,
   ArrowUpRight,
   CreditCard,
-  DownloadCloudIcon,
   IndianRupee,
+  Search,
   Users,
 } from 'lucide-react';
 
@@ -29,14 +29,15 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import Link from 'next/link';
-import Avvvatars from 'avvvatars-react';
+import { DatePickerWithRange } from '@/components/ui/date-range-picker';
+import prisma from '@/types';
 
 const transactionsData = [
   {
     name: 'Liam Johnson',
     email: 'liam@example.com',
     type: 'Sale',
-    status: 'Paid',
+    status: 'paid',
     date: '2023-06-23',
     amount: '₹250.00',
   },
@@ -44,7 +45,7 @@ const transactionsData = [
     name: 'Emma Thompson',
     email: 'emma@example.com',
     type: 'Purchase',
-    status: 'Unpaid',
+    status: 'unpaid',
     date: '2023-07-15',
     amount: '₹1,500.00',
   },
@@ -60,7 +61,7 @@ const transactionsData = [
     name: 'Sophia Lee',
     email: 'sophia@example.com',
     type: 'Sale',
-    status: 'Paid',
+    status: 'paid',
     date: '2023-09-10',
     amount: '₹3,200.00',
   },
@@ -68,7 +69,7 @@ const transactionsData = [
     name: 'Noah Garcia',
     email: 'noah@example.com',
     type: 'Purchase',
-    status: 'Paid',
+    status: 'paid',
     date: '2023-10-05',
     amount: '₹980.00',
   },
@@ -78,40 +79,41 @@ const teacherSalary = [
   {
     name: 'Rajesh Kumar',
     contact: '9876543210',
-    status: 'Paid',
+    status: 'paid',
     date: '2024-02-14',
     amount: '₹50,000',
   },
   {
     name: 'Priya Sharma',
     contact: '8765432109',
-    status: 'Pending',
+    status: 'pending',
     date: '2024-02-15',
     amount: '₹45,000',
   },
   {
     name: 'Amit Patel',
     contact: '7654321098',
-    status: 'Paid',
+    status: 'paid',
     date: '2024-02-13',
     amount: '₹55,000',
   },
   {
     name: 'Sunita Gupta',
     contact: '6543210987',
-    status: 'Paid',
+    status: 'paid',
     date: '2024-02-12',
     amount: '₹48,000',
   },
   {
     name: 'Vikram Singh',
     contact: '5432109876',
-    status: 'Pending',
+    status: 'pending',
     date: '2024-02-16',
     amount: '₹52,000',
   },
 ];
 export default function Dashboard() {
+  const studentCount = prisma.student.count();
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-4">
@@ -120,12 +122,12 @@ export default function Dashboard() {
             <div>
               <h1 className="text-lg">Dashboard</h1>
             </div>
-            <div>
-              {/* <DateRangePicker />{' '} */}
+            <div className="flex items-center gap-3 ">
+              <DatePickerWithRange />
               <Button>
                 {' '}
-                <DownloadCloudIcon className="mr-2" />
-                Export
+                <Search className="mr-2" />
+                Search
               </Button>
             </div>
           </div>
@@ -180,7 +182,7 @@ export default function Dashboard() {
               <Activity className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+573</div>
+              <div className="text-2xl font-bold">+{studentCount || 0}</div>
               <p className="text-xs text-muted-foreground">
                 +201 since last hour
               </p>
@@ -231,8 +233,19 @@ export default function Dashboard() {
                         {item.type}
                       </TableCell>
                       <TableCell className="">
-                        <Badge className="text-xs" variant="outline">
-                          {item.status}
+                        <Badge
+                          className={`${
+                            item.status === 'paid'
+                              ? 'bg-green-50 text-green-500'
+                              : item.status === 'pending'
+                              ? 'bg-orange-50 text-orange-500'
+                              : item.status === 'unpaid'
+                              ? 'bg-red-50 text-red-500'
+                              : ' '
+                          } text-xs `}
+                          variant="outline"
+                        >
+                          {item.status.toUpperCase()}
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden xl:table-column">
@@ -306,8 +319,17 @@ export default function Dashboard() {
                       </TableCell>
 
                       <TableCell className="">
-                        <Badge className="text-xs" variant="outline">
-                          {item.status}
+                        <Badge
+                          className={`${
+                            item.status === 'paid'
+                              ? 'bg-green-50 text-green-500'
+                              : item.status === 'pending'
+                              ? 'bg-orange-50 text-orange-500'
+                              : ' '
+                          } text-xs `}
+                          variant="outline"
+                        >
+                          {item.status.toUpperCase()}
                         </Badge>
                       </TableCell>
                       <TableCell className="hidden xl:table-column">

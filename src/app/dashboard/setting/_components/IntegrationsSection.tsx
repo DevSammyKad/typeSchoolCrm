@@ -13,10 +13,11 @@ import {
   Card,
 } from '@/components/ui/card';
 
-import whatsapp from '../../../../../public/whatsapp.png';
-import facebook from '../../../../../public/facebook.png';
-import googleForms from '../../../../../public/googleForms.png';
-import googleSheets from '../../../../../public/googleSheets.png';
+import whatsapp from '@/images/whatsapp.png';
+import facebook from '@/images/facebook.png';
+import googleForms from '@/images/googleForms.png';
+import googleSheets from '@/images/googleSheets.png';
+import { Check } from 'lucide-react';
 
 const IntegrationsSection = () => {
   const [generatedAPIKey, setGeneratedAPIKey] = useState(null);
@@ -69,110 +70,148 @@ const IntegrationsSection = () => {
             </div>
           </CardContent>
           <CardFooter className="flex border-t px-6 py-4">
-            <Button onClick={generateAPI}>Generate API_KEY</Button>
+            <Button onClick={generateAPI}>
+              {generatedAPIKey ? ' Regenerate API_KEY' : 'Generate API_KEY'}
+            </Button>
           </CardFooter>
         </Card>
       </div>
-      <div className="gird grid-rows-2 gap-10 space-y-5">
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle className="my-2 flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <Image src={whatsapp} width={50} height={50} alt="WhatsApp" />
-                <div>WhatsApp API</div>
-              </div>
-              <Button variant="outline" type="button">
-                Connect
-              </Button>
-            </CardTitle>
-            <CardDescription>
-              Copy this API_KEY and use in Pabbly Connect
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex w-full gap-5"></div>
-          </CardContent>
-          <CardFooter className="flex justify-end border-t px-6 py-4">
-            <Button>View Integration</Button>
-          </CardFooter>
-        </Card>
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle className="my-2 flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <Image src={facebook} width={50} height={50} alt="WhatsApp" />
-                <div>FaceBook Lead's</div>
-              </div>
-              <Button variant="outline" type="button">
-                Connect
-              </Button>
-            </CardTitle>
-            <CardDescription>
-              Copy this API_KEY and use in Pabbly Connect
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex w-full gap-5"></div>
-          </CardContent>
-          <CardFooter className="flex justify-end border-t px-6 py-4">
-            <Button>View Integration</Button>
-          </CardFooter>
-        </Card>
-        <Card className="col-span-1">
-          <CardHeader>
-            <CardTitle className="my-2 flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <Image
-                  src={googleForms}
-                  width={50}
-                  height={50}
-                  alt="googleForms"
-                />
-                <div>Google Forms API</div>
-              </div>
-              <Button variant="outline" type="button">
-                Connect
-              </Button>
-            </CardTitle>
-            <CardDescription>
-              Copy this API_KEY and use in Pabbly Connect
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-5"></div>
-          </CardContent>
-          <CardFooter className="flex justify-end border-t px-6 py-4">
-            <Button>View Integration</Button>
-          </CardFooter>
-        </Card>
-        <Card className="">
-          <CardHeader>
-            <CardTitle className="my-2 flex items-center justify-between">
-              <div className="flex items-center gap-5">
-                <Image
-                  src={googleSheets}
-                  width={50}
-                  height={50}
-                  alt="Google Sheets"
-                />
-                <div>Google Sheets API</div>
-              </div>
-              <Button variant="outline" type="button">
-                Connect
-              </Button>
-            </CardTitle>
-            <CardDescription>
-              Copy this API_KEY and use in Pabbly Connect
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex w-full gap-5"></div>
-          </CardContent>
-          <CardFooter className="flex justify-end border-t px-6 py-4">
-            <Button>View Integration</Button>
-          </CardFooter>
-        </Card>
-      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="my-2 flex items-center justify-between">
+            Integrations
+          </CardTitle>
+
+          <CardDescription>
+            Integrations Connect Preline to other tools that you use.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <Card>
+              <CardHeader>
+                <CardTitle className="my-2 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <Image
+                      src={whatsapp}
+                      width={50}
+                      height={50}
+                      alt="WhatsApp"
+                    />
+                    <h2 className="text-xl font-semibold tracking-tight transition-colors">
+                      What's App
+                    </h2>
+                  </div>
+                  <Button
+                    variant="outline"
+                    className="bg-muted space-x-2"
+                    type="button"
+                  >
+                    <Check className="mr-2 text-green-500" /> Connected
+                  </Button>
+                </CardTitle>
+                <CardDescription className="leading-7 [&:not(:first-child)]:mt-6">
+                  Copy this API_KEY and use in Pabbly Connect
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex w-full gap-5"></div>
+              </CardContent>
+              <CardFooter className="flex justify-end border-t px-6 py-4">
+                <Button>View Integration</Button>
+              </CardFooter>
+            </Card>{' '}
+            <Card>
+              <CardHeader>
+                <CardTitle className="my-2 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <Image
+                      src={facebook}
+                      width={50}
+                      height={50}
+                      alt="WhatsApp"
+                    />
+                    <h2 className="text-xl font-semibold tracking-tight transition-colors">
+                      What's App
+                    </h2>
+                  </div>
+                  <Button variant="outline" type="button">
+                    Connect
+                  </Button>
+                </CardTitle>
+                <CardDescription className="leading-7 [&:not(:first-child)]:mt-6">
+                  Copy this API_KEY and use in Pabbly Connect
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex w-full gap-5"></div>
+              </CardContent>
+              <CardFooter className="flex justify-end border-t px-6 py-4">
+                <Button>View Integration</Button>
+              </CardFooter>
+            </Card>{' '}
+            <Card>
+              <CardHeader>
+                <CardTitle className="my-2 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <Image
+                      src={googleSheets}
+                      width={50}
+                      height={50}
+                      alt="WhatsApp"
+                    />
+                    <h2 className="text-xl font-semibold tracking-tight transition-colors">
+                      What's App
+                    </h2>
+                  </div>
+                  <Button variant="outline" type="button">
+                    Connect
+                  </Button>
+                </CardTitle>
+                <CardDescription className="leading-7 [&:not(:first-child)]:mt-6">
+                  Copy this API_KEY and use in Pabbly Connect
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex w-full gap-5"></div>
+              </CardContent>
+              <CardFooter className="flex justify-end border-t px-6 py-4">
+                <Button>View Integration</Button>
+              </CardFooter>
+            </Card>{' '}
+            <Card>
+              <CardHeader>
+                <CardTitle className="my-2 flex items-center justify-between">
+                  <div className="flex items-center gap-5">
+                    <Image
+                      src={googleForms}
+                      width={50}
+                      height={50}
+                      alt="WhatsApp"
+                    />
+                    <h2 className="text-xl font-semibold tracking-tight transition-colors">
+                      What's App
+                    </h2>
+                  </div>
+                  <Button variant="outline" type="button">
+                    Connect
+                  </Button>
+                </CardTitle>
+                <CardDescription className="leading-7 [&:not(:first-child)]:mt-6">
+                  Copy this API_KEY and use in Pabbly Connect
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex w-full gap-5"></div>
+              </CardContent>
+              <CardFooter className="flex justify-end border-t px-6 py-4">
+                <Button>View Integration</Button>
+              </CardFooter>
+            </Card>{' '}
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 };

@@ -1,70 +1,84 @@
-import prisma from '@/lib/db';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { NextResponse } from 'next/server';
+import prisma from '@/lib/db'; // Your Prisma client instance
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'; // KindeAuth server session
+
+import { NextResponse } from 'next/server'; // Next.js response
 
 export async function GET() {
-  const testOrganizationId = '4435b4e6-4626-483d-b808-e6d8cf31edc6';
+  const testOrganizationId = '223234'; // ID of the test organization
+
   try {
-    // Fetching the authenticated user from the session
+    // Fetch the authenticated user from the Kinde session
     const { getUser } = getKindeServerSession();
     const user = await getUser();
 
+    // Log the authenticated user details
     console.log('Authenticated User:', user);
 
-    // If no user is found, return an error
+    // If the user is not found or not authenticated, return a 401 error
     if (!user || !user.id) {
-      throw new Error('User not found or session issue');
+      return new NextResponse('User not found or session issue', {
+        status: 401,
+      });
     }
 
-    // Checking if the user exists in the database
+    // Check if the user already exists in the database using Kinde's user ID
     let dbUser = await prisma.user.findUnique({
       where: {
-        id: user.id,
+        id: user.id, // Kinde user ID (String)
       },
     });
 
-    // If the user doesn't exist in the database, create a new user entry
+    // If the user is not found in the database, create a new user
     if (!dbUser) {
-      // Look for a default organization if necessary
-      const defaultOrganization = await prisma.organization.findUnique({
+      console.log(
+        'User is authenticated but not found in the database. Creating a new user.'
+      );
+
+      // Ensure that the test organization exists in the database
+      const testOrganization = await prisma.organization.findUnique({
         where: {
-          id: testOrganizationId,
+          id: testOrganizationId, // Test organization ID
         },
       });
-      if (!defaultOrganization) {
-        throw new Error('No default organization found');
+
+      // If the test organization does not exist, throw an error
+      if (!testOrganization) {
+        throw new Error('Test organization not found in the database');
       }
 
-      // Create a new user record with default organization
+      // Create the new user and associate with the test organization
       dbUser = await prisma.user.create({
         data: {
-          id: user.id,
-          firstName: user.given_name ?? '',
-          lastName: user.family_name ?? '',
-          profileImage: user.picture ?? '',
-          email: user.email ?? '',
-          organizationId: defaultOrganization.id,
+          id: user.id, // Use Kinde user ID for user identification
+          firstName: user.given_name ?? '', // Use Kinde's `given_name`
+          lastName: user.family_name ?? '', // Use Kinde's `family_name`
+          profileImage: user.picture ?? '', // Use profile image from Kinde
+          email: user.email ?? '', // Use email from Kinde
+          organizationId: testOrganizationId, // Associate with the test organization
         },
       });
 
-      console.log('Created new user:', dbUser);
+      console.log('Created new user in the test organization:', dbUser);
+      return NextResponse.redirect(
+        new URL(
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000/dashboard'
+            : 'nexus.com'
+        )
+      );
+    } else {
+      console.log('User already exists in the database:', dbUser);
+      return NextResponse.redirect(
+        new URL(
+          process.env.NODE_ENV === 'development'
+            ? 'http://localhost:3000/dashboard'
+            : 'nexus.com'
+        )
+      );
     }
 
-    // TODO Check if the user belongs to multiple organizations
-
-    // const userOrganizations = await prisma.organization.findMany({
-    //   where: {
-    //     id: user.id,
-    //   },
-    // });
-    // if (userOrganizations.length > 1) {
-    //   return NextResponse.redirect(new URL('/select-organization', '/'));
-    // }
-
-    // Redirect the user to the dashboard after successful creation or lookup
-    return NextResponse.redirect(
-      new URL('/dashboard', 'http://localhost:3000')
-    );
+    // Return the user data as a JSON response
+    return NextResponse.json({ user: dbUser });
   } catch (error) {
     console.error('Error during GET request:', error);
     return new NextResponse('Internal Server Error', { status: 500 });

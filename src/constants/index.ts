@@ -17,41 +17,49 @@ export const NavLinks = [
     path: '/dashboard',
     heading: 'DashBoard',
     icon: LayoutDashboard,
+    roles: ['ADMIN', 'TEACHER', 'STUDENT'],
   },
   {
     path: '/dashboard/leads',
     heading: 'Leads',
     icon: User,
+    roles: ['ADMIN'],
   },
   {
     path: '/dashboard/courses',
     heading: 'Courses',
     icon: LeafyGreen,
+    roles: ['TEACHER', 'ADMIN'],
   },
   {
     path: '/dashboard/students',
     heading: 'Students',
     icon: Users,
+    roles: ['ADMIN', 'TEACHER'],
   },
   {
-    path: '/dashboard/studentsAttendance',
+    path: '/dashboard/attendance',
     heading: 'Attendance',
     icon: Users,
+    roles: ['TEACHER', 'ADMIN'], // ADMIN and Teacher
   },
   {
     path: '/dashboard/teachers',
     heading: 'Teachers',
     icon: TicketCheck,
+    roles: ['ADMIN'], // ADMIN only
   },
   {
     path: '/dashboard/setting',
     heading: 'Setting',
     icon: Settings,
+    roles: ['ADMIN', 'TEACHER', 'STUDENT'], // Available to all
   },
   {
     path: '/Help-Center',
     heading: 'Help Center',
     icon: HelpCircle,
+    roles: ['ADMIN', 'TEACHER', 'STUDENT'], // Available to all
   },
 ];
 

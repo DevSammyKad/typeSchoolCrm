@@ -1,16 +1,12 @@
 import { useFormStatus } from 'react-dom';
 import { Button } from './ui/button';
 
-export function CreateOrganizationButton() {
+export default function CreateOrganizationButton() {
   const { pending } = useFormStatus();
+  console.log('Pending state:', pending);
+
   return (
-    <Button
-      variant="gooeyLeft"
-      size="lg"
-      className="my-5"
-      type="submit"
-      disabled={pending}
-    >
+    <Button size="lg" className="my-5" type="submit">
       {pending ? 'Creating...' : 'Create Organization'}
     </Button>
   );

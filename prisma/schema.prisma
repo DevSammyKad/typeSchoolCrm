@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "accelerate"
 }
 
 datasource db {
@@ -9,6 +10,21 @@ datasource db {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Lead {
+  id             Int          @id @default(autoincrement())
+  name           String
+  email          String
+  phone          String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  status         LeadStatus   @default(NEW)
+  age            Int
+  note           String?
+  source         LeadSource   @default(FACEBOOK)
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+}
+
 model Organization {
   id                  String    @id @default(uuid())
   subdomain           String    @unique
@@ -16,20 +32,34 @@ model Organization {
   organizationPanCard String    @unique
   organizationMail    String    @unique
   organizationType    String
-  organizationWebsite String
+  organizationWebsite String?
+  // revenue             Int
+  isActive            String?
+  leads               Lead[]
   grades              Grade[]
   students            Student[]
   users               User[]
+  holidays            Holiday[]
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
-  
-
+  Subject             Subject[]
+  Section             Section[]
 }
 
+model Holiday {
+  id             Int          @id @default(autoincrement())
+  name           String
+  description    String?
+  date           DateTime
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
 
 model User {
   id             String       @id @default(cuid())
-  firstName     String
+  firstName      String
   lastName       String
   email          String       @unique
   profileImage   String
@@ -38,25 +68,76 @@ model User {
   organizationId String
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-  
+}
+
+model Fee {
+  id          String      @id @default(cuid())
+  totalFee    Float
+  paidAmount  Float       @default(0)
+  dueDate     DateTime
+  status      FeeStatus   @default(UNPAID)
+  studentId   String
+  student     Student     @relation(fields: [studentId], references: [id])
+  categoryId  String
+  feecategory FeeCategory @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model FeeCategory {
+  id          String   @id @default(cuid())
+  name        String // e.g., "Yearly Fee", "Exam Fee", "Lab Fee", etc.
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  fees        Fee[]
 }
 
 model Student {
   id                 String              @id @default(uuid())
   firstName          String
   lastName           String
+  profileImage       String?
   age                Int
   address            String
   phoneNumber        String
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
+  parentContact      String?
+  fees               Fee[]
   organizationId     String
+  section            Section?            @relation(fields: [sectionId], references: [id])
+  sectionId          String?
   gradeId            Int
   grade              Grade               @relation(fields: [gradeId], references: [id])
   organization       Organization        @relation(fields: [organizationId], references: [id])
   student_attendance StudentAttendance[]
+  marks              Mark[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
 
   @@unique([id, organizationId])
+}
+
+model Subject {
+  id             String       @id @default(cuid())
+  name           String
+  organizationId String
+  gradeId        Int
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  grade          Grade        @relation(fields: [gradeId], references: [id])
+  marks          Mark[]
+}
+
+model Mark {
+  id        String   @id @default(cuid())
+  marks     Int
+  studentId String
+  subjectId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, subjectId]) // A student should have one mark per subject
 }
 
 model Grade {
@@ -65,6 +146,18 @@ model Grade {
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
   students       Student[]
+  subjects       Subject[]
+  section        Section[]
+}
+
+model Section {
+  id             String       @id @default(cuid())
+  name           String // e.g., "A", "B", "C"
+  gradeId        Int
+  organizationId String
+  grade          Grade        @relation(fields: [gradeId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  students       Student[] // Students in this section
 }
 
 model StudentAttendance {
@@ -75,7 +168,7 @@ model StudentAttendance {
   month     Int
   year      Int
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   student   Student  @relation(fields: [studentId], references: [id])
 
   @@unique([studentId, day, month, year])
@@ -87,7 +180,30 @@ enum Role {
   STUDENT
 }
 
+enum FeeStatus {
+  PAID
+  UNPAID
+  OVERDUE
+}
 
+enum LeadStatus {
+  NEW
+  CONVERTED
+  CONTACTED
+  FOLLOW_UP
+  MISSED
+  CLOSED
+}
 
-
-
+enum LeadSource {
+  FACEBOOK
+  GOOGLE_ADS
+  LINKEDIN
+  TWITTER
+  INSTAGRAM
+  REFERRAL
+  WEBSITE
+  EMAIL_CAMPAIGN
+  EVENTS
+  COLD_CALL
+}

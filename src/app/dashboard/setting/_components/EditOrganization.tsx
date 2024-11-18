@@ -35,6 +35,8 @@ export default function EditOrganization({ data }: iAppProps) {
   if (!data?.id) {
     console.error('No organization ID provided');
   }
+  console.log('Organization ID:', data?.id);
+
   // Use `useForm` to handle form state and validation
   const [lastResult, action] = useFormState(editOrganization, undefined);
 

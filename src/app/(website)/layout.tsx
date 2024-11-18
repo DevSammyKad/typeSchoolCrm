@@ -1,4 +1,4 @@
-export default function StoreFrontLayout({
+export default function WebsiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

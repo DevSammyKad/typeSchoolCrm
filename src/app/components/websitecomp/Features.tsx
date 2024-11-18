@@ -106,7 +106,7 @@ const Features = () => {
 
             <div className="flex flex-col items-center justify-start w-full gap-10 md:gap-20 md:justify-center">
               <div className="flex flex-col text-center justify-center items-center max-sm:items-start">
-                <IconsDiv icon={Feather} />
+                <IconsDiv icon={Activity} />
                 <h1 className="mt-5 text-base font-medium dark:text-neutral-100">
                   Student Performance Tracking
                 </h1>
@@ -117,7 +117,7 @@ const Features = () => {
                 </p>
               </div>
               <div className="flex flex-col text-center justify-center items-center  max-sm:items-start">
-                <IconsDiv icon={Zap} />
+                <IconsDiv icon={Webhook} />
                 <h1 className="mt-5 text-base font-medium dark:text-neutral-100">
                   Seamless Integration
                 </h1>

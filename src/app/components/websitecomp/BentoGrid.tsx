@@ -11,6 +11,8 @@ import { AnimatedListGrid } from './AnimatedListGrid';
 // Track Student All Data
 // Manage Teacher Salary and Track Work Record
 // Track Students Onboarding in Animated Globe
+// Automated Fee Tracking & Payment Reminders
+// Lead Management & Enrollment
 
 const BentoGrid = () => {
   return (
@@ -44,7 +46,7 @@ const BentoGrid = () => {
             </span>
           </div>
         </div>
-        <div className="dark:bg-gray-300/5/20 row-start-1 row-end-3 flex items-center justify-between rounded-2xl border border-zinc-200 bg-zinc-200/40 text-black">
+        <div className="row-start-1 row-end-3 flex items-center justify-between rounded-2xl border border-zinc-200 ">
           {/* <BentoGridAnimatedBeam /> */}
         </div>
         <div className="row-start-4 row-end-6 rounded-2xl border border-zinc-200 ">

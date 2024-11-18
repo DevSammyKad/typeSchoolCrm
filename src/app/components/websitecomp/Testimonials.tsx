@@ -51,40 +51,40 @@ export default Testimonials;
 
 const reviews = [
   {
-    name: 'Jack',
-    username: '@jack',
-    body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jack',
+    name: 'Ravi Kumar',
+    username: '@ravik',
+    body: "This school management system has truly transformed how we track student progress. It's efficient and easy to use. Highly recommended!",
+    img: 'https://avatar.vercel.sh/ravi',
   },
   {
-    name: 'Jill',
-    username: '@jill',
-    body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: 'https://avatar.vercel.sh/jill',
+    name: 'Priya Sharma',
+    username: '@priyasharma',
+    body: 'We were struggling with attendance and fee management, but this system made everything simple and transparent. Such a relief for our admin team!',
+    img: 'https://avatar.vercel.sh/priya',
   },
   {
-    name: 'John',
-    username: '@john',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/john',
+    name: 'Ajay Patel',
+    username: '@ajayp',
+    body: 'I am amazed by how smoothly this system integrates everything – from student details to fee structures. It saves us so much time. Great work!',
+    img: 'https://avatar.vercel.sh/ajay',
   },
   {
-    name: 'Jane',
-    username: '@jane',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jane',
+    name: 'Sunita Reddy',
+    username: '@sunitar',
+    body: 'This software has made communication between parents and teachers much easier. I really appreciate how streamlined it is. Very happy with it.',
+    img: 'https://avatar.vercel.sh/sunita',
   },
   {
-    name: 'Jenny',
-    username: '@jenny',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jenny',
+    name: 'Vikram Singh',
+    username: '@vikramsingh',
+    body: 'We implemented this system in our school last year, and the results have been fantastic. From tracking grades to managing fees, everything is now paperless and automated!',
+    img: 'https://avatar.vercel.sh/vikram',
   },
   {
-    name: 'James',
-    username: '@james',
-    body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/james',
+    name: 'Meera Jain',
+    username: '@meeraj',
+    body: "This is the best solution we've found for managing everything in one place. The support team is also very responsive. Would recommend it to all schools!",
+    img: 'https://avatar.vercel.sh/meera',
   },
 ];
 
@@ -121,7 +121,7 @@ const ReviewCard = ({
           <p className="text-xs font-medium dark:text-white/40">{username}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm">{body}</blockquote>
+      <blockquote className="mt-2 text-sm line-clamp-3">{body}</blockquote>
     </figure>
   );
 };

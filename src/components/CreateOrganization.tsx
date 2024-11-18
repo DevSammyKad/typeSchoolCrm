@@ -15,14 +15,12 @@ import { Label } from './ui/label';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { organizationSchema } from '@/lib/zodSchemas';
-import { useFormState, useFormStatus } from 'react-dom';
-import { Button } from './ui/button';
-import { Loader2, LoaderIcon } from 'lucide-react';
-import { CreateOrganizationButton } from './SubmitButton';
+import { useFormState } from 'react-dom';
+import CreateOrganizationButton from './SubmitButton';
 
 export default function CreateOrganizationPage() {
-  const { pending } = useFormStatus();
   const [lastResult, action] = useFormState(createOrganization, undefined);
+  console.log('Last Result:', lastResult);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -54,9 +52,7 @@ export default function CreateOrganizationPage() {
                     defaultValue={fields.organizationName.initialValue}
                   />
 
-                  <span className="text-red-500 text-sm h-1">
-                    {fields.organizationName.errors}
-                  </span>
+                  <span className="text-red-500 text-sm h-1"></span>
                 </div>
                 <div className="grid w-full gap-3">
                   <Label htmlFor="organizationType">Organization Type</Label>
@@ -99,6 +95,9 @@ export default function CreateOrganizationPage() {
                     key={fields.organizationPanCard.key}
                     name={fields.organizationPanCard.name}
                     defaultValue={fields.organizationPanCard.initialValue}
+                    onChange={(e) => {
+                      e.target.value = e.target.value.toLocaleUpperCase();
+                    }}
                   />
                   <span className="text-red-500 text-sm h-1">
                     {fields.organizationPanCard.errors}
@@ -140,6 +139,9 @@ export default function CreateOrganizationPage() {
                   key={fields.subdomain.key}
                   name={fields.subdomain.name}
                   defaultValue={fields.subdomain.initialValue}
+                  onChange={(e) => {
+                    e.target.value = e.target.value.toLocaleLowerCase();
+                  }}
                   className="rounded-r-none focus-visible:ring-0"
                 />
                 <span className="inline-flex h-10 items-center rounded-r-md border text-green-500 border-l-0 border-input bg-background px-3 text-sm text-muted-foreground">
@@ -151,10 +153,9 @@ export default function CreateOrganizationPage() {
               </span>
             </div>
           </CardContent>
-          <CardFooter className="px-6 py-4 flex ">
-            <CreateOrganizationButton />
-          </CardFooter>
+          <CardFooter className="px-6 py-4 flex "></CardFooter>
         </Card>
+        <CreateOrganizationButton />
       </div>
     </form>
   );

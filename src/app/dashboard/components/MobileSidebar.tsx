@@ -1,14 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { MenuIcon, X } from 'lucide-react';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
+import { MenuIcon } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import SideNav from './SideNav';
 
 const MobileSidebar = () => {

@@ -12,7 +12,7 @@ const FeatureBgWhite: React.FC = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_96_118)">
+      <g clipPath="url(#clip0_96_118)">
         <rect
           width="834"
           height="1194"
@@ -175,7 +175,7 @@ const FeatureBgWhite: React.FC = () => {
           ></ellipse>
         </g>
         <g filter="url(#filter1_d_96_118)">
-          <g clip-path="url(#clip1_96_118)">
+          <g clipPath="url(#clip1_96_118)">
             <rect
               x="559"
               y="473"
@@ -305,7 +305,7 @@ const FeatureBgWhite: React.FC = () => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -326,7 +326,7 @@ const FeatureBgWhite: React.FC = () => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -361,7 +361,7 @@ const FeatureBgWhite: React.FC = () => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+          <feFlood floodOpacity="0" result="BackgroundImageFix"></feFlood>
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -381,8 +381,8 @@ const FeatureBgWhite: React.FC = () => {
           y2="508.192"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFBF9E"></stop>
-          <stop offset="1" stop-color="#FFAF86" stop-opacity="0"></stop>
+          <stop stopColor="#FFBF9E"></stop>
+          <stop offset="1" stopColor="#FFAF86" stopOpacity="0"></stop>
         </linearGradient>
         <linearGradient
           id="paint1_linear_96_118"
@@ -392,8 +392,8 @@ const FeatureBgWhite: React.FC = () => {
           y2="552.797"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#B3B3B3"></stop>
-          <stop offset="1" stop-color="#FF5F0D" stop-opacity="0.5"></stop>
+          <stop stopColor="#B3B3B3"></stop>
+          <stop offset="1" stopColor="#FF5F0D" stopOpacity="0.5"></stop>
         </linearGradient>
         <clipPath id="clip0_96_118">
           <rect

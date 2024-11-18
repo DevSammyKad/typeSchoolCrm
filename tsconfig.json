@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/dashboard/setting/_components/page"
+    "src/app/[subdomain]/dashboard/setting/_components/page",
+    "src/app/components/dashboard/StudentDetailsDrawer.jsx"
   ],
   "exclude": ["node_modules"]
 }

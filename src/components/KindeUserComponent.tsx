@@ -1,5 +1,3 @@
-import { getKindeUser } from '@/actions';
-import Avvvatars from 'avvvatars-react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import React from 'react';
@@ -11,48 +9,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { Button } from './ui/button';
-import { Cloud, LifeBuoy, LogOut, Moon, Sun, Users } from 'lucide-react';
-import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
-import prisma from '@/lib/db';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { ThemeToggle } from '@/app/dashboard/components/ThemeToggle';
 
-async function getDatabaseUser() {
-  const user = await getKindeUser();
+import { Cloud, LifeBuoy, LogOut, Users } from 'lucide-react';
+import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { ThemeToggle } from '@/app/dashboard/components/ThemeToggle';
+import prisma from '@/types';
+
+const KindeUserComponent = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
   if (!user) {
     redirect('/api/auth/login');
-    return null;
   }
 
-  const userEmail = user.email ?? undefined;
-  const databaseUser = await prisma.user.findUnique({
+  const dbUser = await prisma.user.findUnique({
     where: {
-      email: userEmail,
+      id: user.id,
     },
-    select: {
-      id: true,
+    include: {
       organization: true,
     },
   });
-  if (!databaseUser) {
-    throw new Error('User not found in the database');
-  }
-  console.log(databaseUser?.organization.organizationName);
-  return databaseUser?.organization.organizationName;
-}
 
-const KindeUserComponent = async () => {
-  const dataBaseUser = await getDatabaseUser();
-  const user = await getKindeUser();
-  if (!user) {
-    redirect('/api/auth/login');
-  }
-
-  const { getRoles, getOrganization } = getKindeServerSession();
-  const organization = await getOrganization();
-  const roles = await getRoles();
-
+  console.log(user);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -68,11 +50,13 @@ const KindeUserComponent = async () => {
                 className="rounded-full object-cover"
               />
             ) : (
-              <Avvvatars
-                value={user?.given_name?.[0] || 'User'}
-                displayValue="G"
-                size={46}
-              />
+              <Avatar className="w-10 h-10 md:w-16 md:h-16">
+                <AvatarImage
+                  src="/placeholder.svg?height=80&width=80"
+                  alt="Student"
+                />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
             )}
 
             <div className="absolute bottom-0 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-white">
@@ -91,12 +75,12 @@ const KindeUserComponent = async () => {
       <DropdownMenuContent className="w-72">
         <DropdownMenu>
           <DropdownMenuLabel>
-            Organization Name : {organization?.orgCode}
+            Organization Name : {dbUser?.organizationId}
           </DropdownMenuLabel>
 
           <DropdownMenuItem className="mx-3 my-2 flex cursor-pointer items-center gap-5 hover:bg-gray-100 dark:hover:bg-gray-900">
             <LifeBuoy className="mr-2 h-4 w-4" />
-            {dataBaseUser}
+            {dbUser?.organization.subdomain}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
