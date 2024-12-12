@@ -1,5 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  headers: async () => {
+    return [
+      {
+        source: '/service-worker.js',
+        headers: [
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -25,6 +42,10 @@ const nextConfig = {
         port: '',
         pathname: '/avatar/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'avatar.vercel.sh',
+      },
     ],
   },
   async rewrites() {
@@ -35,19 +56,19 @@ const nextConfig = {
       },
     ];
   },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'x-custom-header',
-            value: 'my custom header value',
-          },
-        ],
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: '/:path*',
+  //       headers: [
+  //         {
+  //           key: 'x-custom-header',
+  //           value: 'my custom header value',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;

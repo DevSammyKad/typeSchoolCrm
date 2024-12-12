@@ -1,0 +1,137 @@
+[
+  {
+    "leadName": "Rahul Sharma",
+    "note": "school inquiry",
+    "age": 25,
+    "date": "2024-06-25",
+    "phoneNumber": "+91 9876543210",
+    "leadStatus": "NEW",
+    "leadSource": "FACEBOOK"
+  },
+  {
+    "leadName": "Priya Singh",
+    "note": "school admission",
+    "age": 30,
+    "date": "2024-06-24",
+    "phoneNumber": "+91 1234567890",
+    "leadStatus": "CONTACTED",
+    "leadSource": "GOOGLE_ADS"
+  },
+  {
+    "leadName": "Amit Patel",
+    "note": "school fees payment",
+    "age": 40,
+    "date": "2024-06-23",
+    "phoneNumber": "+91 1112223333",
+    "leadStatus": "FOLLOW_UP",
+    "leadSource": "LINKEDIN"
+  },
+  {
+    "leadName": "Sneha Gupta",
+    "note": "school project consultation",
+    "age": 35,
+    "date": "2024-06-22",
+    "phoneNumber": "+91 5556667777",
+    "leadStatus": "CONVERTED",
+    "leadSource": "TWITTER"
+  },
+  {
+    "leadName": "Rajesh Kumar",
+    "note": "school event registration",
+    "age": 28,
+    "date": "2024-06-21",
+    "phoneNumber": "+91 6667778888",
+    "leadStatus": "CLOSED",
+    "leadSource": "INSTAGRAM"
+  },
+  {
+    "leadName": "Anjali Sharma",
+    "note": "school supplies purchase",
+    "age": 27,
+    "date": "2024-06-20",
+    "phoneNumber": "+91 7778889990",
+    "leadStatus": "NEW",
+    "leadSource": "REFERRAL"
+  },
+  {
+    "leadName": "Vikas Singh",
+    "note": "school counseling session",
+    "age": 32,
+    "date": "2024-06-19",
+    "phoneNumber": "+91 8889990000",
+    "leadStatus": "CONTACTED",
+    "leadSource": "WEBSITE"
+  },
+  {
+    "leadName": "Neha Patel",
+    "note": "school library membership",
+    "age": 29,
+    "date": "2024-06-18",
+    "phoneNumber": "+91 9990001111",
+    "leadStatus": "FOLLOW_UP",
+    "leadSource": "EMAIL_CAMPAIGN"
+  },
+  {
+    "leadName": "Rahul Gupta",
+    "note": "school extracurricular activities",
+    "age": 33,
+    "date": "2024-06-17",
+    "phoneNumber": "+91 0001112222",
+    "leadStatus": "CONVERTED",
+    "leadSource": "EVENTS"
+  },
+  {
+    "leadName": "Pooja Kumar",
+    "note": "school volunteer opportunities",
+    "age": 31,
+    "date": "2024-06-16",
+    "phoneNumber": "+91 2223334444",
+    "leadStatus": "CLOSED",
+    "leadSource": "COLD_CALL"
+  },
+  {
+    "leadName": "Rajat Sharma",
+    "note": "school alumni network",
+    "age": 26,
+    "date": "2024-06-15",
+    "phoneNumber": "+91 3334445555",
+    "leadStatus": "NEW",
+    "leadSource": "FACEBOOK"
+  },
+  {
+    "leadName": "Sakshi Singh",
+    "note": "school career guidance",
+    "age": 37,
+    "date": "2024-06-14",
+    "phoneNumber": "+91 4445556666",
+    "leadStatus": "CONTACTED",
+    "leadSource": "GOOGLE_ADS"
+  },
+  {
+    "leadName": "Alok Patel",
+    "note": "school summer camp registration",
+    "age": 34,
+    "date": "2024-06-13",
+    "phoneNumber": "+91 5556667777",
+    "leadStatus": "FOLLOW_UP",
+    "leadSource": "LINKEDIN"
+  },
+  {
+    "leadName": "Sneha Kumar",
+    "note": "school scholarship application",
+    "age": 38,
+    "date": "2024-06-12",
+    "phoneNumber": "+91 6667778888",
+    "leadStatus": "CONVERTED",
+    "leadSource": "TWITTER"
+  },
+  {
+    "leadName": "Rahul Gupta",
+    "note": "school fundraising event",
+    "age": 36,
+    "date": "2024-06-11",
+    "phoneNumber": "+91 7778889990",
+    "leadStatus": "CLOSED",
+    "leadSource": "INSTAGRAM"
+  }
+]

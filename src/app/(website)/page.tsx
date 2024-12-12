@@ -22,6 +22,9 @@ import BentoGrid from '../components/websitecomp/BentoGrid';
 import Testimonials from '../components/websitecomp/Testimonials';
 import { ThemeToggle } from '../dashboard/components/ThemeToggle';
 import { Spotlight } from '@/components/magicui/Spotlight';
+import { TextScramble } from '@/components/ui/text-scramble';
+import { TextEffectWithExit } from '@/components/TextEffectWithExit';
+import Footer from '../components/websitecomp/Footer';
 
 export default async function IndexPage() {
   const { isAuthenticated } = getKindeServerSession();
@@ -48,11 +51,23 @@ export default async function IndexPage() {
         </div>
       </header>
 
-      <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
+      <div className="relative flex h-[500px]  w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
         <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
           School CRM All in One Place
         </p>
-        <div className="my-4 flex items-center justify-between gap-3">
+        <TextScramble
+          className="font-mono text-sm my-5 h-3"
+          duration={1.2}
+          characterSet=". "
+        >
+          Simplify Operations, Foster Growth, Empower Success
+        </TextScramble>
+
+        <div className="h-5">
+          <TextEffectWithExit />
+        </div>
+
+        <div className="my-4 z-10 flex items-center justify-between gap-3">
           <Dialog>
             <DialogTrigger asChild>
               <Button>Get Early Access</Button>
@@ -82,6 +97,7 @@ export default async function IndexPage() {
 
       <Testimonials />
       <div className="my-5">{/* <BentoGrid /> */}</div>
+      <Footer />
     </main>
   );
 }

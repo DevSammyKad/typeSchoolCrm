@@ -1,12 +1,18 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
 import FeatureBg from './FeatureBg';
 
 import { cn } from '@/lib/utils';
 import AnimatedShinyText from '@/components/magicui/animated-shiny-text';
-import { Feather, LucideIcon, Zap, Webhook, Activity } from 'lucide-react';
+import {
+  Feather,
+  LucideIcon,
+  Zap,
+  Webhook,
+  Activity,
+  ArrowRightIcon,
+} from 'lucide-react';
 import FeatureBgWhite from './FeatureBgWhite';
 import { useTheme } from 'next-themes';
 

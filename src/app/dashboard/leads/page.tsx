@@ -1,7 +1,20 @@
-import React from 'react';
+import { Metadata } from 'next';
 
-const page = () => {
-  return <div>page</div>;
+import { DataTable } from '@/app/components/dashboard/data-table-components/data-table';
+import { columns } from '@/app/components/dashboard/data-table-components/columns';
+import prisma from '@/types';
+
+export const metadata: Metadata = {
+  title: 'Lead Page',
+  description: 'Lead page for school.',
 };
 
-export default page;
+async function getData() {
+  const data = await prisma.lead.findMany();
+  return data;
+}
+
+export default async function Page() {
+  const data = await getData();
+  return <DataTable data={data} columns={columns} />;
+}

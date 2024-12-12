@@ -21,3 +21,35 @@ export const organizationSchema = z.object({
 export const studentSchema = z.object({
   firstName: z.string(),
 });
+
+// We're keeping a simple non-relational schema here.
+// IRL, you will have a schema for your data models.
+export const leadSchema = z.object({
+  leadName: z.string(),
+  leadEmail: z.string(),
+  leadPhoneNumber: z.string(),
+  leadStatus: z.enum([
+    'NEW',
+    'CONVERTED',
+    'CONTACTED',
+    'FOLLOW_UP',
+    'MISSED',
+    'CLOSED',
+  ]),
+  leadAge: z.number(),
+  note: z.string(),
+  leadSource: z.enum([
+    'FACEBOOK',
+    'GOOGLE_ADS',
+    'LINKEDIN',
+    'TWITTER',
+    'INSTAGRAM',
+    'REFERRAL',
+    'WEBSITE',
+    'EMAIL_CAMPAIGN',
+    'EVENTS',
+    'COLD_CALL',
+  ]),
+});
+
+export type Expense = z.infer<typeof leadSchema>;

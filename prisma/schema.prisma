@@ -11,18 +11,18 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Lead {
-  id             Int          @id @default(autoincrement())
-  name           String
-  email          String
-  phone          String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-  status         LeadStatus   @default(NEW)
-  age            Int
-  note           String?
-  source         LeadSource   @default(FACEBOOK)
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  id              Int          @id @default(autoincrement())
+  leadName        String
+  leadEmail       String
+  leadPhoneNumber String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  leadStatus      LeadStatus   @default(NEW)
+  leadAge         Int?
+  note            String?
+  leadSource      LeadSource   @default(FACEBOOK)
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id])
 }
 
 model Organization {
@@ -42,8 +42,24 @@ model Organization {
   holidays            Holiday[]
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
+  notices             Notice[]
   Subject             Subject[]
   Section             Section[]
+}
+
+model Notice {
+  id             String       @id @default(uuid())
+  title          String
+  description    String
+  type           NoticeType // e.g., Announcement or Event
+  date           DateTime // For events, this can be the event date
+  organizationId String
+  tags           String[]
+  global         Boolean      @default(false)
+  // attachments json
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 }
 
 model Holiday {
@@ -206,4 +222,10 @@ enum LeadSource {
   EMAIL_CAMPAIGN
   EVENTS
   COLD_CALL
+}
+
+enum NoticeType {
+  ANNOUNCEMENT
+  EVENT
+  PENDING_FEES
 }

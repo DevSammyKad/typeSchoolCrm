@@ -4,6 +4,8 @@ import { Search } from 'lucide-react';
 import MobileSidebar from './MobileSidebar';
 import KindeUserComponent from '@/components/KindeUserComponent';
 import { ThemeToggle } from './ThemeToggle';
+import { EngageSpotNotification } from '@/app/components/dashboard/EngageSpotNotification';
+import { Button } from '@/components/ui/button';
 
 export default async function Header() {
   // const { setTheme } = useTheme();
@@ -62,6 +64,13 @@ export default async function Header() {
             {isFullscreen ? <Minimize /> : <Maximize />}
           </Button> */}
           {/* <ModeToggle /> */}
+          <div className="mr-2 ">
+            {' '}
+            <Button variant="secondary">
+              {' '}
+              <EngageSpotNotification />
+            </Button>
+          </div>
           <ThemeToggle />
           <KindeUserComponent />
         </div>

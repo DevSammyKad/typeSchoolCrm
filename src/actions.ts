@@ -4,6 +4,7 @@ import { organizationSchema } from '@/lib/zodSchemas';
 import prisma from './lib/db';
 import { redirect } from 'next/navigation';
 import { Holiday } from '@prisma/client';
+import { SubmissionResult } from '@conform-to/react';
 
 export async function createOrganization(
   prevState: unknown,
@@ -171,5 +172,35 @@ export async function deleteHoliday(id: number) {
   } catch (error) {
     console.error('Error deleting holiday:', error);
     return { success: false, error: 'Error deleting holiday' };
+  }
+}
+
+// Lead Page
+
+export async function createLead(
+  prevState: unknown,
+  formData: FormData
+): Promise<SubmissionResult<string[]> | undefined> {
+  'use server';
+
+  try {
+    // Your existing lead creation logic
+    return undefined; // or return validation result if there are errors
+  } catch (error) {
+    return {
+      status: 'error',
+    };
+  }
+}
+
+export async function deleteLead(id: number) {
+  try {
+    await prisma.lead.delete({
+      where: { id },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error deleting lead:', error);
+    return { success: false, error: 'Error deleting lead' };
   }
 }

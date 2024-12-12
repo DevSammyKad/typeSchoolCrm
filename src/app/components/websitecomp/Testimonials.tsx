@@ -3,6 +3,13 @@ import { cn } from '@/lib/utils';
 import { ArrowRightIcon } from 'lucide-react';
 import React from 'react';
 import Marquee from '@/components/magicui/marquee';
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import Image from 'next/image';
 
 const Testimonials = () => {
   return (
@@ -103,25 +110,44 @@ const ReviewCard = ({
   body: string;
 }) => {
   return (
-    <figure
-      className={cn(
-        'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
-        // light styles
-        'border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]',
-        // dark styles
-        'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]'
-      )}
-    >
-      <div className="flex flex-row items-center gap-2">
-        <img className="rounded-full" width="32" height="32" alt="" src={img} />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">
-            {name}
-          </figcaption>
-          <p className="text-xs font-medium dark:text-white/40">{username}</p>
-        </div>
-      </div>
-      <blockquote className="mt-2 text-sm line-clamp-3">{body}</blockquote>
-    </figure>
+    // <figure
+    //   className={cn(
+    //     'relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4',
+    //     // light styles
+    //     'border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]',
+    //     // dark styles
+    //     'dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]'
+    //   )}
+    // >
+    //   <div className="flex flex-row items-center gap-2">
+    //     <img className="rounded-full" width="32" height="32" alt="" src={img} />
+    //     <div className="flex flex-col">
+    //       <figcaption className="text-sm font-medium dark:text-white">
+    //         {name}
+    //       </figcaption>
+    //       <p className="text-xs font-medium dark:text-white/40">{username}</p>
+    //     </div>
+    //   </div>
+    //   <blockquote className="mt-2 text-sm line-clamp-3">{body}</blockquote>
+
+    <Card className="w-96 p-4 cursor-pointer">
+      <CardHeader className="p-0 mb-4 ">
+        <CardTitle className="flex space-x-2">
+          <Image
+            className="rounded-full object-cover w-12 h-12"
+            width="32"
+            height="32"
+            alt="testimonial Image "
+            src={img}
+          />
+          <div className="flex flex-col ">
+            <p className="text-lg">{name}</p>
+            <p className="text-sm">{username}</p>
+          </div>
+        </CardTitle>
+      </CardHeader>
+      <CardDescription className="line-clamp-3">{body}</CardDescription>
+    </Card>
+    // </figure>
   );
 };

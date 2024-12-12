@@ -35,3 +35,12 @@ export function createStudentButton() {
     </Button>
   );
 }
+
+export function CreateLeadButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button size="lg" type="submit" disabled={pending}>
+      {pending ? 'Creating Lead' : 'Create Lead'}
+    </Button>
+  );
+}

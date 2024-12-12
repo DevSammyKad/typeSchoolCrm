@@ -13,32 +13,31 @@ interface Item {
 
 let notifications = [
   {
-    name: 'Payment received',
-    description: 'Magic UI',
+    name: 'Fee Payment Received',
+    description: 'A payment was successfully processed.',
     time: '15m ago',
-
-    icon: '💸',
+    icon: '💰',
     color: '#00C9A7',
   },
   {
-    name: 'Admission approved',
-    description: 'Magic UI',
-    time: '15m ago',
-    icon: '👤',
-    color: '#00C9A7',
+    name: 'Student Admission Approved',
+    description: 'A new student has been enrolled.',
+    time: '10m ago',
+    icon: '🎓',
+    color: '#28A745',
   },
   {
-    name: 'New message',
-    description: 'Magic UI',
+    name: 'New Complaint Filed',
+    description: 'A complaint has been registered.',
     time: '5m ago',
-    icon: '💬',
+    icon: '📝',
     color: '#FF3D71',
   },
   {
-    name: 'New event',
-    description: 'Magic UI',
+    name: 'New Notice Published',
+    description: 'A new holiday or event notice is available.',
     time: '2m ago',
-    icon: '🗞️',
+    icon: '📢',
     color: '#1E86FF',
   },
 ];
@@ -68,11 +67,14 @@ const Notification = ({ name, description, icon, color, time }: Item) => {
           <span className="text-lg">{icon}</span>
         </div>
         <div className="flex flex-col overflow-hidden">
-          <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">
+          <figcaption className="flex items-center  text-lg font-medium dark:text-white whitespace-pre">
             <span className="text-sm sm:text-lg">{name}</span>
-            <span className="mx-1">·</span>
-            <span className="text-xs text-gray-500">{time}</span>
+            <span className="text-xs text-gray-500">
+              . {}
+              {time}
+            </span>
           </figcaption>
+
           <p className="text-sm font-normal dark:text-white/60">
             {description}
           </p>
