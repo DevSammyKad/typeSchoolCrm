@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 };
 
 async function getData() {
-  const data = await prisma.lead.findMany();
+  const data = await prisma.lead.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
   return data;
 }
 

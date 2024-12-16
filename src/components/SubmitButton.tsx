@@ -44,3 +44,12 @@ export function CreateLeadButton() {
     </Button>
   );
 }
+
+export function UpdateLeadButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button size="lg" type="submit" disabled={pending}>
+      {pending ? 'Editing Lead' : 'Edit Lead'}
+    </Button>
+  );
+}

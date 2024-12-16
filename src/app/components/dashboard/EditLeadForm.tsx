@@ -1,15 +1,4 @@
-import React from 'react';
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+'use client';
 
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -22,20 +11,40 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
-import { createLead } from '@/actions';
+import { editLead } from '@/actions';
 import { leadSchema } from '@/lib/zodSchemas';
 import { parseWithZod } from '@conform-to/zod';
 import { useForm } from '@conform-to/react';
 import { useFormState } from 'react-dom';
 import { LeadSource, LeadStatus } from '@prisma/client';
-import { CreateLeadButton } from '@/components/SubmitButton';
+import { UpdateLeadButton } from '@/components/SubmitButton';
 import { PhoneInput } from '@/components/ui/phone-input';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const source = Object.keys(LeadSource);
 const status = Object.keys(LeadStatus);
 
-const AddLeadForm = () => {
-  const [lastResult, action] = useFormState(createLead, undefined);
+interface iAppProps {
+  data: {
+    id: string;
+    leadName: string;
+    leadAge: number | null;
+    leadStatus: LeadStatus;
+    leadSource: LeadSource;
+    leadPhoneNumber: string;
+    leadEmail: string;
+    note: string | null;
+  };
+}
+
+const EditLeadForm = ({ data }: iAppProps) => {
+  const [lastResult, action] = useFormState(editLead, undefined);
   const [form, fields] = useForm({
     // Sync the result of last submission
     lastResult,
@@ -48,20 +57,24 @@ const AddLeadForm = () => {
     // Validate the form on blur event triggered
     shouldValidate: 'onBlur',
     shouldRevalidate: 'onInput',
+    defaultValue: data,
   });
+
+  console.log('Data in parent:', data);
+
+  console.log('Form state:', form);
+  console.log('Form fields:', fields);
+
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button size="sm">Create Lead</Button>
-        </DialogTrigger>
-        <DialogHeader>
-          <DialogContent>
-            <DialogTitle>Create Lead</DialogTitle>
-            <DialogDescription>
-              Create Manual Lead using this form
-            </DialogDescription>
+      <Card className="max-w-5xl mx-auto">
+        <CardHeader>
+          <CardTitle>Edit Lead </CardTitle>
+          <CardDescription>Edit Manual Lead using this form</CardDescription>
+          <CardContent>
             <form id={form.id} onSubmit={form.onSubmit} action={action}>
+              <input type="hidden" name="leadId" value={data.id} />
+
               <div className="mt-5 grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-2">
@@ -71,7 +84,7 @@ const AddLeadForm = () => {
                       placeholder="Full Name"
                       key={fields.leadName.key}
                       name={fields.leadName.name}
-                      defaultValue={fields.leadName.initialValue}
+                      defaultValue={data.leadName}
                     />
                     <span className="text-xs text-red-500">
                       {fields.leadName.errors}
@@ -85,7 +98,7 @@ const AddLeadForm = () => {
                         type="number"
                         key={fields.leadAge.key}
                         name={fields.leadAge.name}
-                        defaultValue={fields.leadAge.initialValue}
+                        defaultValue={data.leadAge || ''}
                         placeholder="age : 22"
                       />
                       <span className="text-xs text-red-500">
@@ -100,7 +113,7 @@ const AddLeadForm = () => {
                     <Select
                       key={fields.leadSource.key}
                       name={fields.leadSource.name}
-                      defaultValue={fields.leadSource.initialValue}
+                      defaultValue={data.leadSource}
                     >
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select Source" />
@@ -122,7 +135,7 @@ const AddLeadForm = () => {
                     <Select
                       key={fields.leadStatus.key}
                       name={fields.leadStatus.name}
-                      defaultValue={fields.leadStatus.initialValue}
+                      defaultValue={data.leadStatus}
                     >
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select Status" />
@@ -147,7 +160,7 @@ const AddLeadForm = () => {
                     placeholder="+91 845900 10000"
                     key={fields.leadPhoneNumber.key}
                     name={fields.leadPhoneNumber.name}
-                    defaultValue={fields.leadPhoneNumber.initialValue}
+                    defaultValue={data.leadPhoneNumber}
                   />
 
                   <span className="text-xs text-red-500">
@@ -161,7 +174,7 @@ const AddLeadForm = () => {
                     placeholder="Email"
                     key={fields.leadEmail.key}
                     name={fields.leadEmail.name}
-                    defaultValue={fields.leadEmail.initialValue}
+                    defaultValue={data.leadEmail}
                   />
                   <span className="text-xs text-red-500">
                     {fields.leadEmail.errors}
@@ -173,7 +186,7 @@ const AddLeadForm = () => {
                     id="note"
                     key={fields.note.key}
                     name={fields.note.name}
-                    defaultValue={fields.note.initialValue}
+                    defaultValue={data.note || ' '}
                     className="min-h-32"
                     placeholder="Write your Note here"
                   />
@@ -181,18 +194,13 @@ const AddLeadForm = () => {
                 </div>
               </div>
 
-              <DialogFooter>
-                <CreateLeadButton />
-              </DialogFooter>
-              {/* <DialogFooter>
-                <Button type="submit">Submit</Button>
-              </DialogFooter> */}
+              <UpdateLeadButton />
             </form>
-          </DialogContent>
-        </DialogHeader>
-      </Dialog>
+          </CardContent>
+        </CardHeader>
+      </Card>
     </>
   );
 };
 
-export default AddLeadForm;
+export default EditLeadForm;

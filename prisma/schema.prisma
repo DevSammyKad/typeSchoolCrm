@@ -11,7 +11,7 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Lead {
-  id              Int          @id @default(autoincrement())
+  id              String       @id @default(uuid())
   leadName        String
   leadEmail       String
   leadPhoneNumber String
@@ -19,6 +19,7 @@ model Lead {
   updatedAt       DateTime     @updatedAt
   leadStatus      LeadStatus   @default(NEW)
   leadAge         Int?
+  isFavorite      Boolean?
   note            String?
   leadSource      LeadSource   @default(FACEBOOK)
   organizationId  String

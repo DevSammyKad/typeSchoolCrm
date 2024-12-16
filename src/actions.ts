@@ -1,11 +1,11 @@
 'use server';
 import { parseWithZod } from '@conform-to/zod';
-import { organizationSchema } from '@/lib/zodSchemas';
+import { leadSchema, organizationSchema } from '@/lib/zodSchemas';
 import prisma from './lib/db';
 import { redirect } from 'next/navigation';
 import { Holiday } from '@prisma/client';
-import { SubmissionResult } from '@conform-to/react';
 
+// Organization
 export async function createOrganization(
   prevState: unknown,
   formData: FormData
@@ -102,6 +102,7 @@ export async function editOrganization(prevState: any, formData: FormData) {
 //   return organization;
 // }
 
+// Student Fees
 export async function getFees() {
   const fees = await prisma.fee.findMany({
     include: {
@@ -115,15 +116,126 @@ export async function getFees() {
 // Student Attendance
 
 // Get Grades
-
 export async function getGrades() {
   const grades = await prisma.grade.findMany();
 
   return grades;
 }
 
+// Lead Page
+export async function createLead(prevState: any, formData: FormData) {
+  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
+
+  // console.log(
+  //   'FormData received in createLead:',
+  //   Object.fromEntries(formData.entries())
+  // );
+
+  const submission = parseWithZod(formData, {
+    schema: leadSchema,
+  });
+
+  // console.log('Parsed Submission:', submission);
+
+  if (submission.status !== 'success') {
+    return submission.reply();
+  }
+
+  await prisma.lead.create({
+    data: {
+      leadName: submission.value.leadName,
+      leadEmail: submission.value.leadEmail,
+      leadPhoneNumber: submission.value.leadPhoneNumber,
+      leadSource: submission.value.leadSource,
+      leadAge: submission.value.leadAge,
+      leadStatus: submission.value.leadStatus,
+      note: submission.value.note || '',
+      organizationId: organizationId,
+    },
+  });
+
+  // console.log('Database Insert Result:', result); // Debug DB Insertion Result
+
+  redirect('/dashboard');
+}
+
+export async function editLead(prevState: any, formData: FormData) {
+  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
+
+  const submission = parseWithZod(formData, {
+    schema: leadSchema,
+  });
+
+  if (submission.status !== 'success') {
+    return submission.reply();
+  }
+
+  console.log('Received formData:', Array.from(formData.entries()));
+
+  const leadId = formData.get('leadId') as string;
+
+  if (!leadId) {
+    throw new Error('leadId is missing in formData');
+  }
+
+  console.log('Updating Lead with ID:', leadId);
+  // Update the lead in the database
+  const result = await prisma.lead.update({
+    where: {
+      id: leadId,
+    },
+    data: {
+      leadName: submission.value.leadName,
+      leadEmail: submission.value.leadEmail,
+      leadPhoneNumber: submission.value.leadPhoneNumber,
+      leadSource: submission.value.leadSource,
+      leadAge: submission.value.leadAge,
+      leadStatus: submission.value.leadStatus,
+      note: submission.value.note || '',
+      organizationId,
+    },
+  });
+
+  console.log('Lead successfully updated:', result);
+
+  // Redirect to the leads dashboard after updating
+  redirect('/dashboard/leads');
+}
+
+export async function deleteLeadById(leadId: string) {
+  try {
+    const result = await prisma.lead.delete({
+      where: { id: leadId },
+    });
+
+    return { success: true, result };
+  } catch (error) {
+    console.error('Error deleting row:', error);
+    return { success: false, error: 'Error while deleting' };
+  }
+}
+
+export async function deleteLeadMany(leadIds: string[]) {
+  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
+  try {
+    const result = await prisma.lead.deleteMany({
+      where: { id: { in: leadIds } },
+    });
+
+    return { success: true, count: result.count };
+  } catch (error) {
+    console.error('Error deleting selected leads:', error);
+    return { success: false, error: 'Failed to delete selected leads' };
+  }
+}
+
+// Teacher Page Action
+
+//###############  Organization Setting Action ##### ////
+
+// organization Holidays
 export async function CreateManyHolidays(holidays: Holiday[]) {
-  const organizationId = '6e6bd690-58ed-4d54-9037-893cd6cd45e8';
+  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
 
   // Check Duplicates For this organization
   const existingHolidays = await prisma.holiday.findMany({
@@ -172,35 +284,5 @@ export async function deleteHoliday(id: number) {
   } catch (error) {
     console.error('Error deleting holiday:', error);
     return { success: false, error: 'Error deleting holiday' };
-  }
-}
-
-// Lead Page
-
-export async function createLead(
-  prevState: unknown,
-  formData: FormData
-): Promise<SubmissionResult<string[]> | undefined> {
-  'use server';
-
-  try {
-    // Your existing lead creation logic
-    return undefined; // or return validation result if there are errors
-  } catch (error) {
-    return {
-      status: 'error',
-    };
-  }
-}
-
-export async function deleteLead(id: number) {
-  try {
-    await prisma.lead.delete({
-      where: { id },
-    });
-    return { success: true };
-  } catch (error) {
-    console.error('Error deleting lead:', error);
-    return { success: false, error: 'Error deleting lead' };
   }
 }

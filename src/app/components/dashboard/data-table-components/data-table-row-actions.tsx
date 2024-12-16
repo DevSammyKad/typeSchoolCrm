@@ -17,15 +17,40 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontalIcon } from 'lucide-react';
+import { useTransition } from 'react';
+import { deleteLeadById } from '@/actions';
+import { toast } from 'sonner';
+import { Lead } from './columns';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>;
+interface DataTableRowActionsProps {
+  row: Row<Lead>;
 }
 
-export function DataTableRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
-  // const task = taskSchema.parse(row.original);
+export function DataTableRowActions({ row }: DataTableRowActionsProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const leadId = row.original.id;
+
+  const handleDelete = async () => {
+    // Assuming `id` is the unique key for the row
+    startTransition(async () => {
+      try {
+        const result = await deleteLeadById(leadId.toString());
+        if (result.success) {
+          toast.success('Lead deleted successfully');
+          router.push('/dashboard/leads');
+          // Optionally, you can refresh the table data here
+        } else {
+          toast.error(`Failed to delete Lead: ${result.error}`);
+        }
+      } catch (error) {
+        console.error('Error deleting Lead:', error);
+        toast.error('An error occurred while deleting the Lead');
+      }
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -39,11 +64,13 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/dashboard/leads/${leadId}`}>Edit</Link>
+        </DropdownMenuItem>
 
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={handleDelete} disabled={isPending}>
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
         </DropdownMenuItem>

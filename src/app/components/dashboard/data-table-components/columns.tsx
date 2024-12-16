@@ -12,7 +12,7 @@ import { z } from 'zod';
 import { LeadSource, LeadStatus } from '@prisma/client';
 
 export type Lead = {
-  id: number;
+  id: string;
   note: string | null;
   leadName: string;
   leadEmail: string;
@@ -150,6 +150,17 @@ export const columns: ColumnDef<Lead>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  {
+    accessorKey: 'leadEmail',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[200px] capitalize">{row.getValue('leadEmail')}</div>
+    ),
+    enableSorting: false,
+    enableHiding: true,
+  },
 
   // {
   //   accessorKey: 'amount',
@@ -192,14 +203,14 @@ export const columns: ColumnDef<Lead>[] = [
     },
   },
   {
-    accessorKey: 'date',
+    accessorKey: 'createdAt',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date" />
     ),
     cell: ({ row }) => {
       // const date = new Date(row.getValue('date'));
       const formattedDate = new Intl.DateTimeFormat('en-IN').format(
-        row.getValue('date')
+        row.getValue('createdAt')
       );
       return (
         <div className="flex w-[100px] items-center">
@@ -209,7 +220,7 @@ export const columns: ColumnDef<Lead>[] = [
     },
     filterFn: (row, id, value) => {
       const rowDate = new Date(row.getValue(id));
-      const [startDate, endDate] = value;
+      const [startDate, endDate] = value.map((date: string) => new Date(date));
       return rowDate >= startDate && rowDate <= endDate;
     },
   },

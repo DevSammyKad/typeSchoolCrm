@@ -4,7 +4,7 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'; // 
 import { NextResponse } from 'next/server'; // Next.js response
 
 export async function GET() {
-  const testOrganizationId = '223234'; // ID of the test organization
+  const testOrganizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17'; // ID of the test organization
 
   try {
     // Fetch the authenticated user from the Kinde session
@@ -21,64 +21,42 @@ export async function GET() {
       });
     }
 
-    // Check if the user already exists in the database using Kinde's user ID
-    let dbUser = await prisma.user.findUnique({
+    // Ensure that the test organization exists in the database
+    const testOrganization = await prisma.organization.findUnique({
       where: {
-        id: user.id, // Kinde user ID (String)
+        id: testOrganizationId, // Test organization ID
       },
     });
 
-    // If the user is not found in the database, create a new user
-    if (!dbUser) {
-      console.log(
-        'User is authenticated but not found in the database. Creating a new user.'
-      );
-
-      // Ensure that the test organization exists in the database
-      const testOrganization = await prisma.organization.findUnique({
-        where: {
-          id: testOrganizationId, // Test organization ID
-        },
-      });
-
-      // If the test organization does not exist, throw an error
-      if (!testOrganization) {
-        throw new Error('Test organization not found in the database');
-      }
-
-      // Create the new user and associate with the test organization
-      dbUser = await prisma.user.create({
-        data: {
-          id: user.id, // Use Kinde user ID for user identification
-          firstName: user.given_name ?? '', // Use Kinde's `given_name`
-          lastName: user.family_name ?? '', // Use Kinde's `family_name`
-          profileImage: user.picture ?? '', // Use profile image from Kinde
-          email: user.email ?? '', // Use email from Kinde
-          organizationId: testOrganizationId, // Associate with the test organization
-        },
-      });
-
-      console.log('Created new user in the test organization:', dbUser);
-      return NextResponse.redirect(
-        new URL(
-          process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000/dashboard'
-            : 'nexus.com'
-        )
-      );
-    } else {
-      console.log('User already exists in the database:', dbUser);
-      return NextResponse.redirect(
-        new URL(
-          process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000/dashboard'
-            : 'nexus.com'
-        )
-      );
+    // If the test organization does not exist, throw an error
+    if (!testOrganization) {
+      throw new Error('Test organization not found in the database');
     }
 
-    // Return the user data as a JSON response
-    return NextResponse.json({ user: dbUser });
+    // Create the new user and associate with the test organization
+    const dbUser = await prisma.user.upsert({
+      where: { id: user.id },
+      update: {},
+      create: {
+        id: user.id, // Use Kinde user ID for user identification
+        firstName: user.given_name ?? '', // Use Kinde's `given_name`
+        lastName: user.family_name ?? '', // Use Kinde's `family_name`
+        profileImage: user.picture ?? '', // Use profile image from Kinde
+        email: user.email ?? '', // Use email from Kinde
+        organizationId: testOrganizationId, // Associate with the test organization
+      },
+    });
+
+    console.log('User upserted in the database:', dbUser);
+
+    // Redirect the user to the dashboard
+    return NextResponse.redirect(
+      new URL(
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3000/dashboard'
+          : 'https://nexus.com'
+      )
+    );
   } catch (error) {
     console.error('Error during GET request:', error);
     return new NextResponse('Internal Server Error', { status: 500 });

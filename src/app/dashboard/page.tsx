@@ -114,6 +114,7 @@ const teacherSalary = [
 ];
 export default function Dashboard() {
   const studentCount = prisma.student.count();
+  const leadCount = prisma.lead.count();
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-4">
@@ -156,7 +157,7 @@ export default function Dashboard() {
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
+              <div className="text-2xl font-bold">+{leadCount}</div>
               <p className="text-xs text-muted-foreground">
                 +180.1% from last month
               </p>
