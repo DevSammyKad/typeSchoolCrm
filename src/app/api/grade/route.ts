@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/db';
-
-async function getOrganizationIdFromRequest(req: NextRequest): Promise<string> {
-  return '6e6bd690-58ed-4d54-9037-893cd6cd45e8';
-}
+import getOrgId from '@/lib/getOrgId';
 
 export async function GET(req: NextRequest) {
   try {
-    const organizationId = await getOrganizationIdFromRequest(req);
+    const organizationId = await getOrgId();
 
     if (!organizationId) {
       return new NextResponse('organizationId is required', { status: 400 });
@@ -24,7 +21,7 @@ export async function GET(req: NextRequest) {
     });
 
     // Return the grades as a JSON response
-    // console.log('Grades', grades);
+    console.log('Grades', grades);
     return NextResponse.json(grades);
   } catch (error) {
     console.error('Error fetching grades:', error);

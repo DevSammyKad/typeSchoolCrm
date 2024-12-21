@@ -4,11 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
-import { leadSchema } from '@/lib/zodSchemas';
-import { z } from 'zod';
 import { LeadSource, LeadStatus } from '@prisma/client';
 
 export type Lead = {

@@ -4,7 +4,7 @@ import EditOrganization from './_components/EditOrganization';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
-interface iApps {
+interface iAppsProps {
   id: string;
   createdAt: Date;
   updatedAt: Date;

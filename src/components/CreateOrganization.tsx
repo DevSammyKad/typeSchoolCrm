@@ -114,6 +114,7 @@ export default function CreateOrganizationPage() {
                   key={fields.organizationWebsite.key}
                   name={fields.organizationWebsite.name}
                   defaultValue={fields.organizationWebsite.initialValue}
+                  prefix="https://"
                 />
                 <span className="text-red-500 text-sm h-1">
                   {fields.organizationWebsite.errors}

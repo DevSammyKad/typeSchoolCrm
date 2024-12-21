@@ -53,3 +53,29 @@ export function UpdateLeadButton() {
     </Button>
   );
 }
+
+export function CreateGradeButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button size="lg" type="submit" disabled={pending}>
+      {pending ? 'Creating Grade' : 'Create Grade'}
+    </Button>
+  );
+}
+export function DeleteGradeButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button size="lg" type="submit" disabled={pending}>
+      {pending ? 'Deleting Grade' : 'Delete Grade'}
+    </Button>
+  );
+}
+
+export function CreateSectionButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button size="lg" type="submit" disabled={pending}>
+      {pending ? 'Creating Section' : 'Create Section'}
+    </Button>
+  );
+}

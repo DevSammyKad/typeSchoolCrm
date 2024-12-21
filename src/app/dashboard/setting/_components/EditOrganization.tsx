@@ -19,19 +19,21 @@ import { useForm } from '@conform-to/react';
 
 import { UpdateOrganizationButton } from '@/components/SubmitButton';
 
-interface iAppProps {
-  data?: {
-    id: string;
-    organizationName: string;
-    organizationMail: string;
-    subdomain: string;
-    organizationPanCard: string;
-    organizationType: string;
-    organizationWebsite: string;
-  };
+interface OrganizationData {
+  id: string;
+  organizationName: string;
+  organizationMail: string;
+  subdomain: string;
+  organizationPanCard: string;
+  organizationType: string;
+  organizationWebsite: string | null;
 }
 
-export default function EditOrganization({ data }: iAppProps) {
+interface EditOrganizationProps {
+  data: OrganizationData;
+}
+
+export default function EditOrganization({ data }: EditOrganizationProps) {
   if (!data?.id) {
     console.error('No organization ID provided');
   }
@@ -162,7 +164,7 @@ export default function EditOrganization({ data }: iAppProps) {
                   placeholder="For ex: Kritischool.com"
                   key={fields.organizationWebsite.key}
                   name={fields.organizationWebsite.name}
-                  defaultValue={data?.organizationWebsite}
+                  defaultValue={data?.organizationWebsite || ''}
                   // value={organizationWebsite}
                   // onChange={(e) => setOrganizationWebsite(e.target.value)}
                 />

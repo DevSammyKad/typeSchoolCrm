@@ -24,6 +24,8 @@ const GradeSelect: React.FC<GradeSelectProps> = ({
 }) => {
   const { data: grades, error } = useSWR<Grade[]>('/api/grade', fetcher);
 
+  console.log('Grades:', grades);
+
   if (error) {
     console.error('Failed to fetch grades:', error);
     return <div>Error loading grades.</div>;

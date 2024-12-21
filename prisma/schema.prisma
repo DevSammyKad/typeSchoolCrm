@@ -19,7 +19,7 @@ model Lead {
   updatedAt       DateTime     @updatedAt
   leadStatus      LeadStatus   @default(NEW)
   leadAge         Int?
-  isFavorite      Boolean?
+  isFavorite      Boolean?     @default(false)
   note            String?
   leadSource      LeadSource   @default(FACEBOOK)
   organizationId  String
@@ -115,6 +115,8 @@ model Student {
   firstName          String
   lastName           String
   profileImage       String?
+  email              String?
+  gender             Gender?
   age                Int
   address            String
   phoneNumber        String
@@ -229,4 +231,10 @@ enum NoticeType {
   ANNOUNCEMENT
   EVENT
   PENDING_FEES
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
 }

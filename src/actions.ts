@@ -1,9 +1,16 @@
 'use server';
 import { parseWithZod } from '@conform-to/zod';
-import { leadSchema, organizationSchema } from '@/lib/zodSchemas';
+import {
+  contactFormSchema,
+  gradeSchema,
+  leadSchema,
+  organizationSchema,
+  sectionSchema,
+  studentSchema,
+} from '@/lib/zodSchemas';
 import prisma from './lib/db';
 import { redirect } from 'next/navigation';
-import { Holiday } from '@prisma/client';
+import { Gender, Holiday } from '@prisma/client';
 
 // Organization
 export async function createOrganization(
@@ -111,6 +118,35 @@ export async function getFees() {
     },
   });
   return fees;
+}
+// Student Page
+export async function createStudent(prevState: unknown, formData: FormData) {
+  const submission = parseWithZod(formData, {
+    schema: studentSchema,
+  });
+
+  if (submission.status !== 'success') {
+    return submission.reply();
+  }
+  console.log(FormData);
+
+  await prisma.student.create({
+    data: {
+      firstName: submission.value.firstName,
+      lastName: submission.value.lastName,
+      email: submission.value.email,
+      phoneNumber: submission.value.phoneNumber,
+      address: submission.value.address,
+      parentContact: submission.value.parentContact,
+      sectionId: submission.value.sectionId,
+      gradeId: submission.value.gradeId as number,
+      age: submission.value.age,
+      gender: submission.value.gender as Gender | null,
+      profileImage: submission.value.profileImage,
+      organizationId: submission.value.organizationId,
+    },
+  });
+  redirect('/dashboard/students');
 }
 
 // Student Attendance
@@ -227,6 +263,57 @@ export async function deleteLeadMany(leadIds: string[]) {
     console.error('Error deleting selected leads:', error);
     return { success: false, error: 'Failed to delete selected leads' };
   }
+}
+
+// Add Grade
+export async function createGrade(prevState: any, formData: FormData) {
+  const submission = parseWithZod(formData, {
+    schema: gradeSchema,
+  });
+  if (submission.status !== 'success') {
+    console.log('Validation failed:', submission.error);
+    return submission.reply();
+  }
+
+  console.log('Grade creation data:', submission.value);
+  await prisma.grade.create({
+    data: {
+      grade: submission.value.grade,
+      organizationId: '212b7959-4a3a-43dc-8a53-7607e0ee2d17',
+    },
+  });
+
+  redirect('/dashboard/grades');
+}
+export async function deleteGrade(formData: FormData) {
+  const gradeId = Number(formData.get('gradeId'));
+
+  const result = await prisma.grade.delete({
+    where: { id: gradeId },
+  });
+
+  redirect('/dashboard/grades');
+}
+
+export async function createSection(prevState: any, formData: FormData) {
+  const submission = parseWithZod(formData, {
+    schema: sectionSchema,
+  });
+  if (submission.status !== 'success') {
+    console.log('Validation failed:', submission.error);
+    return submission.reply();
+  }
+
+  console.log('Section creation data:', submission.value);
+  await prisma.section.create({
+    data: {
+      name: submission.value.name,
+      gradeId: submission.value.gradeId,
+      organizationId: '212b7959-4a3a-43dc-8a53-7607e0ee2d17',
+    },
+  });
+
+  redirect('/dashboard/grades');
 }
 
 // Teacher Page Action

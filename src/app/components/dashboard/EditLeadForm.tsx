@@ -60,7 +60,7 @@ const EditLeadForm = ({ data }: iAppProps) => {
     defaultValue: data,
   });
 
-  console.log('Data in parent:', data);
+  console.log('EditLeadForm data:', data.id);
 
   console.log('Form state:', form);
   console.log('Form fields:', fields);
@@ -73,7 +73,11 @@ const EditLeadForm = ({ data }: iAppProps) => {
           <CardDescription>Edit Manual Lead using this form</CardDescription>
           <CardContent>
             <form id={form.id} onSubmit={form.onSubmit} action={action}>
-              <input type="hidden" name="leadId" value={data.id} />
+              <input
+                type="hidden"
+                name="leadId"
+                value={fields.id.value || data.id}
+              />
 
               <div className="mt-5 grid gap-4">
                 <div className="grid grid-cols-2 gap-4">

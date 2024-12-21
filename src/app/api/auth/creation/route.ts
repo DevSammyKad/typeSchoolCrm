@@ -47,7 +47,7 @@ export async function GET() {
       },
     });
 
-    console.log('User upserted in the database:', dbUser);
+    console.log('User upsert in the database:', dbUser);
 
     // Redirect the user to the dashboard
     return NextResponse.redirect(

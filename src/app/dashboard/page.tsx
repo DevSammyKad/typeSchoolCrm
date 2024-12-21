@@ -121,7 +121,7 @@ export default function Dashboard() {
         <header>
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-lg">Dashboard</h1>
+              <h1>Dashboard</h1>
             </div>
             <div className="flex items-center gap-3 ">
               <DatePickerWithRange />
@@ -133,6 +133,7 @@ export default function Dashboard() {
             </div>
           </div>
         </header>
+
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card
             x-chunk="dashboard-01-chunk-0 "

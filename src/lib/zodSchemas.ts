@@ -18,9 +18,24 @@ export const organizationSchema = z.object({
   organizationWebsite: z.string().url('Invalid website URL').optional(),
 });
 
+const GenderEnum = z.enum(['MALE', 'FEMALE', 'OTHER']);
+
 export const studentSchema = z.object({
-  firstName: z.string(),
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  profileImage: z.string().url().optional().nullable(),
+  email: z.string().email().optional().nullable(),
+  gender: GenderEnum.optional(),
+  age: z.number().int().positive('Age must be a positive number'),
+  address: z.string().min(1, 'Address is required'),
+  phoneNumber: z.string().min(1, 'Phone number is required'),
+  parentContact: z.string().optional().nullable(),
+  organizationId: z.string().uuid('Invalid organization ID'),
+  sectionId: z.string().uuid('Invalid section ID').optional().nullable(),
+  gradeId: z.number().int().positive('Invalid grade ID'),
 });
+
+export type StudentFormData = z.infer<typeof studentSchema>;
 
 // We're keeping a simple non-relational schema here.
 // IRL, you will have a schema for your data models.
@@ -53,5 +68,24 @@ export const leadSchema = z.object({
   leadEmail: z.string().email('Invalid email'),
   note: z.string().optional(),
 });
-
 // export type Expense = z.infer<typeof leadSchema>;
+
+export const gradeSchema = z.object({
+  grade: z.string().min(1, 'Grade name is required'),
+});
+export const sectionSchema = z.object({
+  gradeId: z.number(),
+  name: z.string().min(1, 'Section name is required'),
+});
+
+export const contactFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: 'Name must be at least 2 characters' })
+    .max(32, { message: 'Name must be at most 32 characters' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  message: z
+    .string()
+    .min(2, { message: 'Message must be at least 2 characters' })
+    .max(1000, { message: 'Message must be at most 1000 characters' }),
+});
