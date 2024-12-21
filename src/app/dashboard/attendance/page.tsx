@@ -7,7 +7,7 @@ import AttendanceGrid from '../../components/dashboard/AttendanceGrid';
 
 import moment from 'moment';
 import axios from 'axios';
-import AttendanceCard from '@/app/components/dashboard/AttendanceCard';
+// import AttendanceCard from '@/app/components/dashboard/AttendanceCard';
 
 interface AttendanceRecord {
   id: number;

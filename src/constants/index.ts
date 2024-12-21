@@ -9,7 +9,6 @@ import {
   TicketCheck,
   User,
   Users,
-  Users2,
 } from 'lucide-react';
 
 export const NavLinks = [

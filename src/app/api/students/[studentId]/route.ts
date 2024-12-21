@@ -36,6 +36,7 @@ export async function GET(
 
     // Convert to an array for easier handling
     const result = Object.values(attendanceCountByMonth);
+    console.log('attendanceCountByMonth', result);
 
     return NextResponse.json(attendanceCountByMonth, { status: 200 });
   } catch (error) {

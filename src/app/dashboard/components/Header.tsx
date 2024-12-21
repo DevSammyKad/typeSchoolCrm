@@ -5,7 +5,7 @@ import MobileSidebar from './MobileSidebar';
 import KindeUserComponent from '@/components/KindeUserComponent';
 import { ThemeToggle } from './ThemeToggle';
 // import { EngageSpotNotification } from '@/app/components/dashboard/EngageSpotNotification';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 
 export default async function Header() {
   // const { setTheme } = useTheme();

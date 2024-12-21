@@ -1,4 +1,4 @@
-import { Edit2, GraduationCap, Plus, Trash2 } from 'lucide-react';
+import { Edit2, GraduationCap, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import prisma from '@/lib/db';

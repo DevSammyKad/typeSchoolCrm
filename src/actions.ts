@@ -1,7 +1,6 @@
 'use server';
 import { parseWithZod } from '@conform-to/zod';
 import {
-  contactFormSchema,
   gradeSchema,
   leadSchema,
   organizationSchema,
@@ -252,7 +251,7 @@ export async function deleteLeadById(leadId: string) {
 }
 
 export async function deleteLeadMany(leadIds: string[]) {
-  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
+  // const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
   try {
     const result = await prisma.lead.deleteMany({
       where: { id: { in: leadIds } },
@@ -288,7 +287,7 @@ export async function createGrade(prevState: any, formData: FormData) {
 export async function deleteGrade(formData: FormData) {
   const gradeId = Number(formData.get('gradeId'));
 
-  const result = await prisma.grade.delete({
+  await prisma.grade.delete({
     where: { id: gradeId },
   });
 
