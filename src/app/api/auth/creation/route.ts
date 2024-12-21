@@ -3,6 +3,8 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'; // 
 
 import { NextResponse } from 'next/server'; // Next.js response
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const testOrganizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17'; // ID of the test organization
 
