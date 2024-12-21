@@ -20,7 +20,7 @@ export function DatePickerWithRange({
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
-    to: addDays(new Intl.DateTimeFormat('en-US').format(Date.now()), 1),
+    to: addDays(new Date(), 1),
   });
 
   return (
