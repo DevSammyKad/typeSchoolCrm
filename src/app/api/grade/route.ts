@@ -21,7 +21,7 @@ export async function GET() {
     });
 
     // Return the grades as a JSON response
-    console.log('Grades', grades);
+    // console.log('Grades', grades);
     return NextResponse.json(grades);
   } catch (error) {
     console.error('Error fetching grades:', error);

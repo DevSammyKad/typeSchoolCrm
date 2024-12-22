@@ -16,6 +16,7 @@ interface iAppsProps {
   organizationWebsite: string | null;
   isActive: string | null;
 }
+export const dynamic = 'force-dynamic';
 
 export default async function SettingsPage() {
   const { getUser } = getKindeServerSession();
