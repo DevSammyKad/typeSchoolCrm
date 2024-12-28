@@ -7,6 +7,29 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 export const metadata: Metadata = {
   title: 'School CRM',
   description: 'Entire School Management Software',
+  keywords:
+    'Sameer Kad, School CRM, Full-Stack Developer, School Management Software, Educational CRM, Attendance Tracker, Fee Management, Next.js Developer',
+  metadataBase: new URL('https://school-crm.example.com'),
+  authors: [{ name: 'Sameer Kad', url: 'https://github.com/DevSammyKad' }],
+  creator: 'Sameer Kad',
+  applicationName: 'School CRM',
+  publisher: 'Sameer Kad',
+  // openGraph: {
+  //   title: 'Sameer Kad | School CRM',
+  //   description:
+  //     'Explore School CRM, a powerful school management tool developed by Sameer Kad. Simplify educational administration with role-based access, fee management, and attendance tracking.',
+  //   url: 'https://school-crm.example.com',
+  //   siteName: 'School CRM',
+  //   type: 'website',
+  //   images: [
+  //     {
+  //       url: '/og-image.png', // Replace with your Open Graph image URL
+  //       width: 1200,
+  //       height: 630,
+  //       alt: 'Sameer Kad | School CRM',
+  //     },
+  //   ],
+  // },
 };
 const inter = Inter({ subsets: ['latin'] });
 

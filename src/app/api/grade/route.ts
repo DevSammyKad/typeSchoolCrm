@@ -16,6 +16,7 @@ export async function GET() {
         organizationId: organizationId,
       },
       include: {
+        section: true,
         students: true,
       },
     });

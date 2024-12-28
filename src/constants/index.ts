@@ -25,8 +25,8 @@ export const NavLinks = [
     roles: ['ADMIN'],
   },
   {
-    path: '/dashboard/courses',
-    heading: 'Courses',
+    path: '/dashboard/grades',
+    heading: 'Class',
     icon: LeafyGreen,
     roles: ['TEACHER', 'ADMIN'],
   },

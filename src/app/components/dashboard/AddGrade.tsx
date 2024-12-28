@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -61,8 +62,12 @@ export function AddGrade() {
           <span className="text-xs text-red-500 block my-4 h-2">
             {fields.grade.errors}
           </span>
-
-          <CreateGradeButton />
+          <div className="flex justify-between items-center">
+            <DialogClose>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <CreateGradeButton />
+          </div>
         </form>
       </DialogContent>
     </Dialog>

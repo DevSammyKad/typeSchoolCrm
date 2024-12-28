@@ -39,6 +39,10 @@ async function getStudentData(studentId: string) {
     where: {
       id: studentId,
     },
+    include: {
+      grade: true,
+      section: true,
+    },
   });
   return data;
 }
@@ -106,7 +110,9 @@ const StudentIdRoute = async ({ params }: { params: { id: string } }) => {
               <h1 className="text-lg font-bold">
                 {data?.firstName} {data?.lastName}
               </h1>
-              <p className="text-gray-500">Grade {data?.gradeId} - Section A</p>
+              <p className="text-gray-500">
+                {data?.grade.grade} - {data?.section?.name}
+              </p>
             </div>
           </div>
           <Button>Edit Profile</Button>

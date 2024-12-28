@@ -19,7 +19,11 @@ import { useFormState } from 'react-dom';
 import { createSection } from '@/actions';
 import { CreateSectionButton } from '@/components/SubmitButton';
 
-export function AddSection() {
+interface AddSectionProps {
+  gradeId: string;
+}
+
+export function AddSection({ gradeId }: AddSectionProps) {
   const [lastResult, action] = useFormState(createSection, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -29,6 +33,8 @@ export function AddSection() {
     shouldValidate: 'onBlur',
     shouldRevalidate: 'onInput',
   });
+
+  console.log('GradeId:', gradeId);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,6 +51,8 @@ export function AddSection() {
           </DialogDescription>
         </DialogHeader>
         <form action={action} id={form.id} onSubmit={form.onSubmit}>
+          <input type="hidden" name="gradeId" value={gradeId} />
+
           <div className="grid  items-center gap-4">
             <Label htmlFor="sectionName" className="text-left">
               Section Name

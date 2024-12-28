@@ -25,14 +25,13 @@ export const studentSchema = z.object({
   lastName: z.string().min(1, 'Last name is required'),
   profileImage: z.string().url().optional().nullable(),
   email: z.string().email().optional().nullable(),
-  gender: GenderEnum.optional(),
+  gender: GenderEnum,
   age: z.number().int().positive('Age must be a positive number'),
   address: z.string().min(1, 'Address is required'),
   phoneNumber: z.string().min(1, 'Phone number is required'),
+  parentName: z.string().min(1, 'Parent name is required').optional(),
   parentContact: z.string().optional().nullable(),
   organizationId: z.string().uuid('Invalid organization ID'),
-  sectionId: z.string().uuid('Invalid section ID').optional().nullable(),
-  gradeId: z.number().int().positive('Invalid grade ID'),
 });
 
 export type StudentFormData = z.infer<typeof studentSchema>;
@@ -74,6 +73,6 @@ export const gradeSchema = z.object({
   grade: z.string().min(1, 'Grade name is required'),
 });
 export const sectionSchema = z.object({
-  gradeId: z.number(),
+  gradeId: z.string(),
   name: z.string().min(1, 'Section name is required'),
 });

@@ -26,7 +26,7 @@ export function UpdateOrganizationButton() {
   );
 }
 
-export function createStudentButton() {
+export function CreateStudentButton() {
   const { pending } = useFormStatus();
 
   return (

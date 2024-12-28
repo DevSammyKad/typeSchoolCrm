@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteGrade } from '@/actions';
+import { deleteSection } from '@/actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -12,12 +12,12 @@ import {
 import Link from 'next/link';
 import { useFormStatus } from 'react-dom';
 
-export default function DeleteGradePage({
+export default function sectionDeleteRoute({
   params,
 }: {
-  params: { gradeId: string };
+  params: { sectionId: string };
 }) {
-  const gradeId = params.gradeId;
+  const sectionId = params.sectionId;
 
   return (
     <div className="h-[80vh] flex justify-center items-center w-full">
@@ -40,11 +40,11 @@ export default function DeleteGradePage({
           <form
             action={async () => {
               const formData = new FormData();
-              formData.append('gradeId', gradeId);
-              await deleteGrade(formData);
+              formData.append('sectionId', sectionId);
+              await deleteSection(formData);
             }}
           >
-            <DeleteGradeButton />
+            <DeleteSectionButton />
           </form>
         </CardFooter>
       </Card>
@@ -52,7 +52,7 @@ export default function DeleteGradePage({
   );
 }
 
-function DeleteGradeButton() {
+function DeleteSectionButton() {
   const { pending } = useFormStatus();
 
   return (

@@ -4,7 +4,7 @@ import HolidaysUploader from '../_components/HolidaysUploader';
 import HolidaysTable from './HolidaysTable';
 
 const page = async () => {
-  const organizationId = '6e6bd690-58ed-4d54-9037-893cd6cd45e8';
+  const organizationId = '212b7959-4a3a-43dc-8a53-7607e0ee2d17';
   const holidays = await prisma.holiday.findMany({
     where: { organizationId },
     orderBy: { date: 'asc' },

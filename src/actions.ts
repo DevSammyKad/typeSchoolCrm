@@ -127,7 +127,9 @@ export async function createStudent(prevState: unknown, formData: FormData) {
   if (submission.status !== 'success') {
     return submission.reply();
   }
-  console.log(FormData);
+
+  const selectedGrade = formData.get('selectedGrade') as string;
+  const selectedSection = formData.get('selectedSection') as string;
 
   await prisma.student.create({
     data: {
@@ -137,8 +139,8 @@ export async function createStudent(prevState: unknown, formData: FormData) {
       phoneNumber: submission.value.phoneNumber,
       address: submission.value.address,
       parentContact: submission.value.parentContact,
-      sectionId: submission.value.sectionId,
-      gradeId: submission.value.gradeId as number,
+      sectionId: selectedSection,
+      gradeId: selectedGrade,
       age: submission.value.age,
       gender: submission.value.gender as Gender | null,
       profileImage: submission.value.profileImage,
@@ -285,25 +287,34 @@ export async function createGrade(prevState: any, formData: FormData) {
   redirect('/dashboard/grades');
 }
 export async function deleteGrade(formData: FormData) {
-  const gradeId = Number(formData.get('gradeId'));
+  const gradeIdValue = formData.get('gradeId')?.toString();
 
   await prisma.grade.delete({
-    where: { id: gradeId },
+    where: { id: gradeIdValue },
+  });
+
+  redirect('/dashboard/grades');
+}
+
+export async function deleteSection(formData: FormData) {
+  const sectionId = formData.get('sectionId')?.toString();
+
+  await prisma.section.delete({
+    where: { id: sectionId },
   });
 
   redirect('/dashboard/grades');
 }
 
 export async function createSection(prevState: any, formData: FormData) {
+  const gradeId = formData.get('gradeId');
   const submission = parseWithZod(formData, {
     schema: sectionSchema,
   });
   if (submission.status !== 'success') {
-    console.log('Validation failed:', submission.error);
     return submission.reply();
   }
 
-  console.log('Section creation data:', submission.value);
   await prisma.section.create({
     data: {
       name: submission.value.name,
@@ -312,7 +323,7 @@ export async function createSection(prevState: any, formData: FormData) {
     },
   });
 
-  redirect('/dashboard/grades');
+  redirect(`/dashboard/grades/${gradeId}`);
 }
 
 // Teacher Page Action

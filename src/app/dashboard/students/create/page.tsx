@@ -4,7 +4,7 @@ import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+
 import {
   Select,
   SelectContent,
@@ -28,6 +28,7 @@ import { useFormState } from 'react-dom';
 import GradeSelect from '@/app/components/dashboard/GradeSelect';
 import { useState } from 'react';
 import SectionSelect from '@/app/components/dashboard/SectionSelect';
+import { CreateStudentButton } from '@/components/SubmitButton';
 
 export default function StudentForm() {
   const [lastResult, action] = useFormState(createStudent, undefined);
@@ -63,10 +64,10 @@ export default function StudentForm() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="gradeName">First Name</Label>
+              <Label htmlFor="firstName">First Name</Label>
               <Input
-                id="gradeName"
-                placeholder="Enter Grade name"
+                id="firstName"
+                placeholder="Enter First name"
                 name={fields.firstName.name}
                 defaultValue={fields.firstName.initialValue}
                 key={fields.firstName.key}
@@ -81,21 +82,21 @@ export default function StudentForm() {
               <Label htmlFor="lastName">last Name</Label>
               <Input
                 id="lastName"
-                placeholder="Enter Grade name"
+                placeholder="Enter last name"
                 name={fields.lastName.name}
                 defaultValue={fields.lastName.initialValue}
                 key={fields.lastName.key}
                 className="col-span-3"
               />
               <span className="text-xs text-red-500 block my-4 h-2">
-                {fields.firstName.errors}
+                {fields.lastName.errors}
               </span>
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="Enter Grade name"
+                placeholder="Enter email name"
                 name={fields.email.name}
                 defaultValue={fields.email.initialValue}
                 key={fields.email.key}
@@ -105,6 +106,25 @@ export default function StudentForm() {
                 {fields.email.errors}
               </span>
             </div>
+            <div className="space-y-2">
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input
+                  id="phone"
+                  placeholder="Phone"
+                  name={fields.phoneNumber.name}
+                  defaultValue={fields.phoneNumber.initialValue}
+                  key={fields.phoneNumber.key}
+                  className="col-span-3"
+                />
+                <span className="text-xs text-red-500 block my-4 h-2">
+                  {fields.phoneNumber.errors}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="gender">Gender</Label>
               <Select
@@ -130,6 +150,7 @@ export default function StudentForm() {
               <Input
                 id="age"
                 placeholder="Age"
+                type="number"
                 name={fields.age.name}
                 defaultValue={fields.age.initialValue}
                 key={fields.age.key}
@@ -138,22 +159,6 @@ export default function StudentForm() {
               <span className="text-xs text-red-500 block my-4 h-2">
                 {fields.age.errors}
               </span>
-            </div>
-            <div className="space-y-2">
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input
-                  id="phone"
-                  placeholder="Phone"
-                  name={fields.phoneNumber.name}
-                  defaultValue={fields.phoneNumber.initialValue}
-                  key={fields.phoneNumber.key}
-                  className="col-span-3"
-                />
-                <span className="text-xs text-red-500 block my-4 h-2">
-                  {fields.phoneNumber.errors}
-                </span>
-              </div>
             </div>
           </div>
           <div className="space-y-2">
@@ -170,39 +175,67 @@ export default function StudentForm() {
               {fields.address.errors}
             </span>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="parentContact">Parent Contact</Label>
-            <Input
-              id="parentContact"
-              placeholder="Parent Contact"
-              name={fields.parentContact.name}
-              defaultValue={fields.parentContact.initialValue}
-              key={fields.parentContact.key}
-              className="col-span-3"
-            />
-            <span className="text-xs text-red-500 block my-4 h-2">
-              {fields.parentContact.errors}
-            </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="parentName">Parent Name</Label>
+              <Input
+                id="parentName"
+                placeholder="Parent Name"
+                name={fields.parentName.name}
+                defaultValue={fields.parentName.initialValue}
+                key={fields.parentName.key}
+                className="col-span-3"
+              />
+              <span className="text-xs text-red-500 block my-4 h-2">
+                {fields.parentName.errors}
+              </span>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="parentContact">Parent Contact</Label>
+              <Input
+                id="parentContact"
+                placeholder="Parent Contact"
+                name={fields.parentContact.name}
+                defaultValue={fields.parentContact.initialValue}
+                key={fields.parentContact.key}
+                className="col-span-3"
+              />
+              <span className="text-xs text-red-500 block my-4 h-2">
+                {fields.parentContact.errors}
+              </span>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <input type="hidden" name="organizationId" />
-
-            <GradeSelect
-              selectedGrade={(id) => setSelectedGrade(id)} // Pass numeric ID
-              defaultGrade={selectedGrade.toString()} // Ensure consistent type
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+            <input
+              type="hidden"
+              name="organizationId"
+              value={'212b7959-4a3a-43dc-8a53-7607e0ee2d17'}
+            />
+            <input type="hidden" name="selectedGrade" value={selectedGrade} />
+            <input
+              type="hidden"
+              name="selectedSection"
+              value={selectedSection}
             />
 
-            <SectionSelect
-              selectedGradeId={selectedGrade}
-              onSelectSection={setSelectedSection}
-            />
+            <div className="space-y-2">
+              <Label htmlFor="gradeName">Grade</Label>
+              <GradeSelect
+                selectedGrade={setSelectedGrade}
+                defaultGrade={selectedGrade}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="sectionName">Section</Label>
+              <SectionSelect
+                selectedGradeId={selectedGrade}
+                onSelectSection={setSelectedSection}
+              />
+            </div>
           </div>
         </CardContent>
-        <CardFooter>
-          <Button type="submit" className="w-full">
-            Register Student
-          </Button>
-        </CardFooter>
+
+        <CreateStudentButton />
       </form>
     </Card>
   );

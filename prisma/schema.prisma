@@ -125,7 +125,7 @@ model Student {
   organizationId     String
   section            Section?            @relation(fields: [sectionId], references: [id])
   sectionId          String?
-  gradeId            Int
+  gradeId            String
   grade              Grade               @relation(fields: [gradeId], references: [id])
   organization       Organization        @relation(fields: [organizationId], references: [id])
   student_attendance StudentAttendance[]
@@ -140,7 +140,7 @@ model Subject {
   id             String       @id @default(cuid())
   name           String
   organizationId String
-  gradeId        Int
+  gradeId        String
   organization   Organization @relation(fields: [organizationId], references: [id])
   grade          Grade        @relation(fields: [gradeId], references: [id])
   marks          Mark[]
@@ -160,7 +160,7 @@ model Mark {
 }
 
 model Grade {
-  id             Int          @id @default(autoincrement())
+  id             String       @id @default(cuid())
   grade          String
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
@@ -172,7 +172,7 @@ model Grade {
 model Section {
   id             String       @id @default(cuid())
   name           String // e.g., "A", "B", "C"
-  gradeId        Int
+  gradeId        String
   organizationId String
   grade          Grade        @relation(fields: [gradeId], references: [id])
   organization   Organization @relation(fields: [organizationId], references: [id])

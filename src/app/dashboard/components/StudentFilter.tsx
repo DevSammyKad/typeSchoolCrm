@@ -1,70 +1,41 @@
 'use client'; // This makes it a client-side component
 
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select';
+import GradeSelect from '@/app/components/dashboard/GradeSelect';
+import SectionSelect from '@/app/components/dashboard/SectionSelect';
+import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 import { useState } from 'react';
 
-// Props passed from the server component
-interface StudentFilterProps {
-  grades: { id: number; name: string }[];
-  sections: { id: string; name: string }[];
-}
+export default function StudentFilter() {
+  const [selectedGrade, setSelectedGrade] = useState<string>('');
+  const [selectedSection, setSelectedSection] = useState<string>('');
 
-export default function StudentFilter({
-  grades,
-  sections,
-}: StudentFilterProps) {
-  const [selectedGrade, setSelectedGrade] = useState<string | null>(null);
-  const [selectedSection, setSelectedSection] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleGradeChange = (value: string) => {
-    setSelectedGrade(value);
-    setSelectedSection(null); // Reset section when grade changes
+  const handleFilter = () => {
+    const queryParams = new URLSearchParams();
+
+    if (selectedGrade) queryParams.append('grade', selectedGrade);
+    if (selectedSection) queryParams.append('section', selectedSection);
+
+    router.push(`/dashboard/students?${queryParams.toString()} `);
   };
-
-  const handleSectionChange = (value: string) => {
-    setSelectedSection(value);
-  };
-
-  // Filter sections based on the selected grade
-  const filteredSections = sections.filter((section) => {
-    return section.id === selectedGrade; // Assuming `gradeId` exists in `sections`
-  });
-
   return (
     <div className="flex gap-4 w-full">
       {/* Grade Select */}
-      <Select onValueChange={handleGradeChange}>
-        <SelectTrigger className="">
-          <SelectValue placeholder="Select Grade" />
-        </SelectTrigger>
-        <SelectContent>
-          {grades.map((grade) => (
-            <SelectItem key={grade.id} value={grade.id as unknown as string}>
-              {grade.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <GradeSelect defaultGrade="" selectedGrade={setSelectedGrade} />
 
       {/* Section Select */}
-      <Select onValueChange={handleSectionChange} disabled={!selectedGrade}>
-        <SelectTrigger className="">
-          <SelectValue placeholder="Select Section" />
-        </SelectTrigger>
-        <SelectContent>
-          {filteredSections.map((section) => (
-            <SelectItem key={section.id} value={section.id}>
-              {section.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <SectionSelect
+        selectedGradeId={selectedGrade}
+        onSelectSection={setSelectedSection}
+      />
+      <Button onClick={handleFilter} disabled={!selectedGrade}>
+        <Search className="mr-2" />
+        Search
+      </Button>
     </div>
   );
 }

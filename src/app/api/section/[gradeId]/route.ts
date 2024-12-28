@@ -4,7 +4,7 @@ import getOrgId from '@/lib/getOrgId';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { gradeId: number } }
+  { params }: { params: { gradeId: string } }
 ) {
   const { gradeId } = params;
 
@@ -26,6 +26,9 @@ export async function GET(
       },
       include: {
         students: true,
+      },
+      orderBy: {
+        name: 'asc',
       },
     });
 
