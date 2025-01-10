@@ -7,7 +7,7 @@ import {
   RegisterLink,
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+// import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import {
   Dialog,
@@ -27,7 +27,7 @@ import { TextEffectWithExit } from '@/components/TextEffectWithExit';
 import Footer from '../components/websitecomp/Footer';
 
 export default async function IndexPage() {
-  const { isAuthenticated } = getKindeServerSession();
+  // const { isAuthenticated } = getKindeServerSession();
 
   // if (!(await isAuthenticated())) {
   //   redirect('/api/auth/login');

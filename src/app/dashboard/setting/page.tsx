@@ -4,18 +4,18 @@ import EditOrganization from './_components/EditOrganization';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
-interface iAppsProps {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  subdomain: string;
-  organizationName: string;
-  organizationPanCard: string;
-  organizationMail: string;
-  organizationType: string;
-  organizationWebsite: string | null;
-  isActive: string | null;
-}
+// interface iAppsProps {
+//   id: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   subdomain: string;
+//   organizationName: string;
+//   organizationPanCard: string;
+//   organizationMail: string;
+//   organizationType: string;
+//   organizationWebsite: string | null;
+//   isActive: string | null;
+// }
 export const dynamic = 'force-dynamic';
 
 export default async function SettingsPage() {

@@ -4,6 +4,8 @@ import { DataTable } from '@/app/components/dashboard/data-table-components/data
 import { columns } from '@/app/components/dashboard/data-table-components/columns';
 import prisma from '@/types';
 
+export const dynamic = 'force-dynamic'; // Ensures dynamic rendering
+
 export const metadata: Metadata = {
   title: 'Lead Page',
   description: 'Lead page for school.',

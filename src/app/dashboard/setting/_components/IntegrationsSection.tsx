@@ -100,7 +100,7 @@ const IntegrationsSection = () => {
                       alt="WhatsApp"
                     />
                     <h2 className="text-xl font-semibold tracking-tight transition-colors">
-                      What's App
+                      What&apos;s App
                     </h2>
                   </div>
                   <Button
@@ -133,7 +133,7 @@ const IntegrationsSection = () => {
                       alt="WhatsApp"
                     />
                     <h2 className="text-xl font-semibold tracking-tight transition-colors">
-                      What's App
+                      What&apos;s App
                     </h2>
                   </div>
                   <Button variant="outline" type="button">
@@ -162,7 +162,7 @@ const IntegrationsSection = () => {
                       alt="WhatsApp"
                     />
                     <h2 className="text-xl font-semibold tracking-tight transition-colors">
-                      What's App
+                      What&apos;s App
                     </h2>
                   </div>
                   <Button variant="outline" type="button">
@@ -191,7 +191,7 @@ const IntegrationsSection = () => {
                       alt="WhatsApp"
                     />
                     <h2 className="text-xl font-semibold tracking-tight transition-colors">
-                      What's App
+                      What&apos;s App
                     </h2>
                   </div>
                   <Button variant="outline" type="button">

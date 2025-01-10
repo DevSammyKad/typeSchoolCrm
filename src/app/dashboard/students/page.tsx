@@ -4,15 +4,16 @@ import Link from 'next/link';
 import prisma from '@/lib/db';
 import { Card, CardContent } from '@/components/ui/card';
 
-import { Award, Search } from 'lucide-react';
+import { Award } from 'lucide-react';
 
-import placeholder from '@/images/placeholder.png';
 import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import StudentFilter from '../components/StudentFilter';
 import SearchStudents from '../components/SearchStudents';
 
 import placeholderImage from '@/images/User.svg';
+
+export const dynamic = 'force-dynamic'; // Ensures dynamic rendering
 
 async function getStudentsData({
   query = '',

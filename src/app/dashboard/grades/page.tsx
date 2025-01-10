@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CircleAlert } from 'lucide-react';
 
+export const dynamic = 'force-dynamic'; // Ensures dynamic rendering
+
 const Page = () => {
   return (
     <div className="flex items-center justify-center h-full p-4">

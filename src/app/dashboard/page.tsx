@@ -32,6 +32,8 @@ import Link from 'next/link';
 import { DatePickerWithRange } from '@/components/ui/date-range-picker';
 import prisma from '@/types';
 
+export const dynamic = 'force-dynamic'; // Ensures dynamic rendering
+
 const transactionsData = [
   {
     name: 'Liam Johnson',

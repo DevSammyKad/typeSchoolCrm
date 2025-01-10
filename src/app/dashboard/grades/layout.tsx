@@ -6,7 +6,7 @@ export default async function GradesLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid grid-cols-12 gap-4 border rounded-2xl border-gray-200 pb-4">
+    <div className="grid grid-cols-12 gap-4 border rounded-2xl  pb-4">
       {/* Sidebar */}
       <GradeListing />
 
